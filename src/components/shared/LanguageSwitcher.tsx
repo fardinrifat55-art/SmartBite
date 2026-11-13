@@ -37,7 +37,7 @@ export function LanguageSwitcher({
           className={cn(
             "gap-1.5 rounded-full px-3",
             isLight
-              ? "text-white/90 hover:bg-white/10 hover:text-white"
+              ? "text-[#F0F7F7]/90 hover:bg-[#AFEEEE]/10 hover:text-[#F0F7F7]"
               : "text-forest hover:bg-lime-soft/40"
           )}
           aria-label={t("settings.language")}

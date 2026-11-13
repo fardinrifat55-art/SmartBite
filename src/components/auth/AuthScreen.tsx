@@ -30,7 +30,7 @@ function PasswordStrength({ password }: { password: string }) {
     { label: "Number", test: (p: string) => /\d/.test(p) },
   ];
   const score = checks.filter((c) => c.test(password)).length;
-  const colors = ["bg-white/15", "bg-[#EF4444]", "bg-[#F2D15B]", "bg-[#4ADE80]"];
+  const colors = ["bg-[#AFEEEE]/15", "bg-[#EF4444]", "bg-[#F2D15B]", "bg-[#AFEEEE]"];
 
   return (
     <div className="mt-2">
@@ -40,7 +40,7 @@ function PasswordStrength({ password }: { password: string }) {
             key={i}
             className={cn(
               "h-1 flex-1 rounded-full transition-colors",
-              i < score ? colors[score] : "bg-white/10"
+              i < score ? colors[score] : "bg-[#AFEEEE]/10"
             )}
           />
         ))}
@@ -53,7 +53,7 @@ function PasswordStrength({ password }: { password: string }) {
               key={c.label}
               className={cn(
                 "flex items-center gap-1 text-[11px]",
-                passed ? "text-[#4ADE80]" : "text-white/35"
+                passed ? "text-[#AFEEEE]" : "text-[#F0F7F7]/35"
               )}
             >
               <Check className="h-3 w-3" />
@@ -156,19 +156,19 @@ export function AuthScreen() {
   return (
     <div className="culinary-smoky min-h-screen flex flex-col overflow-hidden relative">
       {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full bg-[#3A2618]/20 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full bg-[#AFEEEE]/8 blur-3xl pointer-events-none" />
 
       {/* Top bar */}
       <div className="relative z-10 flex items-center justify-between p-5 sm:p-6">
         <button
           onClick={() => setView("landing")}
-          className="flex items-center gap-1.5 text-sm font-medium text-[#A3A3A3] hover:text-[#E5E5E5] transition-colors"
+          className="flex items-center gap-1.5 text-sm font-medium text-[#9BB0B3] hover:text-[#F0F7F7] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">{t("nav.home")}</span>
         </button>
-        <span className="font-jakarta text-base font-extrabold tracking-tight text-[#E5E5E5]">
-          Nutrilen<span className="text-[#A3A3A3]"> AI</span>
+        <span className="font-jakarta text-base font-extrabold tracking-tight text-[#F0F7F7]">
+          Nutrilen<span className="text-[#9BB0B3]"> AI</span>
         </span>
         <LanguageSwitcher variant="light" />
       </div>
@@ -186,21 +186,21 @@ export function AuthScreen() {
               className="culinary-glass rounded-2xl p-6 sm:p-8"
             >
               {/* Heading */}
-              <h1 className="font-jakarta text-2xl sm:text-3xl font-extrabold text-[#E5E5E5] tracking-tight">
+              <h1 className="font-jakarta text-2xl sm:text-3xl font-extrabold text-[#F0F7F7] tracking-tight">
                 {mode === "signin" ? t("auth.welcomeBack") : t("auth.startJourney")}
               </h1>
-              <p className="mt-2 text-sm text-[#A3A3A3]">
+              <p className="mt-2 text-sm text-[#9BB0B3]">
                 {mode === "signin" ? t("auth.welcomeSubtitle") : t("auth.startSubtitle")}
               </p>
 
               <form onSubmit={handleSubmit} className="mt-7 space-y-4">
                 {mode === "signup" && (
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[#A3A3A3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
                       {t("auth.fullName")}
                     </label>
                     <div className="relative">
-                      <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A3A3A3]" />
+                      <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
                       <input
                         type="text"
                         value={name}
@@ -214,11 +214,11 @@ export function AuthScreen() {
                 )}
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-[#A3A3A3] uppercase tracking-wide">
+                  <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
                     {t("auth.email")}
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A3A3A3]" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
                     <input
                       type="email"
                       value={email}
@@ -232,7 +232,7 @@ export function AuthScreen() {
 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-[#A3A3A3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
                       {t("auth.password")}
                     </label>
                     {mode === "signin" && (
@@ -246,14 +246,14 @@ export function AuthScreen() {
                               : "Enter your email first, then click this link again.",
                           })
                         }
-                        className="text-xs text-[#4ADE80] hover:underline font-medium"
+                        className="text-xs text-[#AFEEEE] hover:underline font-medium"
                       >
                         {t("auth.forgotPassword")}
                       </button>
                     )}
                   </div>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A3A3A3]" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
@@ -265,7 +265,7 @@ export function AuthScreen() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A3A3A3] hover:text-[#E5E5E5]"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9BB0B3] hover:text-[#F0F7F7]"
                       aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -278,11 +278,11 @@ export function AuthScreen() {
 
                 {mode === "signup" && (
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[#A3A3A3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
                       {t("auth.confirmPassword")}
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A3A3A3]" />
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
                       <input
                         type={showConfirm ? "text" : "password"}
                         value={confirmPassword}
@@ -294,7 +294,7 @@ export function AuthScreen() {
                       <button
                         type="button"
                         onClick={() => setShowConfirm((v) => !v)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A3A3A3] hover:text-[#E5E5E5]"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9BB0B3] hover:text-[#F0F7F7]"
                         aria-label={showConfirm ? "Hide password" : "Show password"}
                       >
                         {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -310,12 +310,12 @@ export function AuthScreen() {
                       onClick={() => setRemember((v) => !v)}
                       className={cn(
                         "w-5 h-5 rounded border flex items-center justify-center transition-all",
-                        remember ? "bg-[#E5E5E5] border-[#E5E5E5]" : "border-white/20"
+                        remember ? "bg-[#AFEEEE] border-[#F0F7F7]" : "border-[#AFEEEE]/20"
                       )}
                     >
-                      {remember && <Check className="h-3 w-3 text-[#141414]" strokeWidth={3} />}
+                      {remember && <Check className="h-3 w-3 text-[#0B1416]" strokeWidth={3} />}
                     </button>
-                    <span className="text-sm text-[#A3A3A3] cursor-pointer" onClick={() => setRemember((v) => !v)}>
+                    <span className="text-sm text-[#9BB0B3] cursor-pointer" onClick={() => setRemember((v) => !v)}>
                       {t("auth.remember")}
                     </span>
                   </div>
@@ -326,12 +326,12 @@ export function AuthScreen() {
                       onClick={() => setAgree((v) => !v)}
                       className={cn(
                         "w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5 transition-all",
-                        agree ? "bg-[#E5E5E5] border-[#E5E5E5]" : "border-white/20"
+                        agree ? "bg-[#AFEEEE] border-[#F0F7F7]" : "border-[#AFEEEE]/20"
                       )}
                     >
-                      {agree && <Check className="h-3 w-3 text-[#141414]" strokeWidth={3} />}
+                      {agree && <Check className="h-3 w-3 text-[#0B1416]" strokeWidth={3} />}
                     </button>
-                    <span className="text-sm text-[#A3A3A3] leading-relaxed cursor-pointer" onClick={() => setAgree((v) => !v)}>
+                    <span className="text-sm text-[#9BB0B3] leading-relaxed cursor-pointer" onClick={() => setAgree((v) => !v)}>
                       {t("auth.agreeTerms")}
                     </span>
                   </div>
@@ -359,10 +359,10 @@ export function AuthScreen() {
                 {/* Divider */}
                 <div className="relative py-1">
                   <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-white/8" />
+                    <div className="w-full border-t border-[#AFEEEE]/8" />
                   </div>
                   <div className="relative flex justify-center">
-                    <span className="bg-transparent px-3 text-xs text-[#A3A3A3]">or</span>
+                    <span className="bg-transparent px-3 text-xs text-[#9BB0B3]">or</span>
                   </div>
                 </div>
 
@@ -379,22 +379,22 @@ export function AuthScreen() {
 
                 {/* Demo account — sign-in mode only */}
                 {mode === "signin" && (
-                  <div className="mt-3 rounded-xl border border-dashed border-white/20 bg-white/5 p-4">
+                  <div className="mt-3 rounded-xl border border-dashed border-[#AFEEEE]/20 bg-[#AFEEEE]/5 p-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#4ADE80]/15 flex items-center justify-center flex-shrink-0">
-                        <ShieldCheck className="h-4 w-4 text-[#4ADE80]" strokeWidth={1.8} />
+                      <div className="w-9 h-9 rounded-lg bg-[#AFEEEE]/12 flex items-center justify-center flex-shrink-0">
+                        <ShieldCheck className="h-4 w-4 text-[#AFEEEE]" strokeWidth={1.8} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-bold text-[#E5E5E5]">Demo Account</div>
-                        <div className="text-xs text-[#A3A3A3] mt-0.5 leading-relaxed">
+                        <div className="text-sm font-bold text-[#F0F7F7]">Demo Account</div>
+                        <div className="text-xs text-[#9BB0B3] mt-0.5 leading-relaxed">
                           Skip onboarding and explore with pre-filled data.
                         </div>
                         <div className="mt-2 space-y-1 text-xs">
-                          <div className="flex items-center gap-1.5 text-[#A3A3A3]">
+                          <div className="flex items-center gap-1.5 text-[#9BB0B3]">
                             <Mail className="h-3 w-3" />
                             <span className="font-mono">{DEMO_EMAIL}</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-[#A3A3A3]">
+                          <div className="flex items-center gap-1.5 text-[#9BB0B3]">
                             <Lock className="h-3 w-3" />
                             <span className="font-mono">{DEMO_PASSWORD}</span>
                           </div>
@@ -414,11 +414,11 @@ export function AuthScreen() {
               </form>
 
               {/* Footer link */}
-              <p className="mt-6 text-center text-sm text-[#A3A3A3]">
+              <p className="mt-6 text-center text-sm text-[#9BB0B3]">
                 {mode === "signin" ? t("auth.noAccount") : t("auth.haveAccount")}{" "}
                 <button
                   onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-                  className="text-[#4ADE80] font-semibold hover:underline"
+                  className="text-[#AFEEEE] font-semibold hover:underline"
                 >
                   {mode === "signin" ? t("auth.createAccount") : t("common.signIn")}
                 </button>

@@ -15,7 +15,7 @@ export function LandingHowItWorks() {
   const { t } = useI18n();
 
   return (
-    <section id="how" className="culinary-dark py-20 sm:py-24 lg:py-28 border-t border-white/8">
+    <section id="how" className="culinary-dark py-20 sm:py-24 lg:py-28 border-t border-[#AFEEEE]/8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -24,17 +24,17 @@ export function LandingHowItWorks() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto"
         >
-          <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#E5E5E5] tracking-tight">
+          <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#F0F7F7] tracking-tight">
             {t("how.title")}
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#A3A3A3]">
+          <p className="mt-4 text-base sm:text-lg text-[#9BB0B3]">
             {t("how.subtitle")}
           </p>
         </motion.div>
 
         <div className="mt-16 relative">
           {/* Connecting line */}
-          <div className="hidden lg:block absolute top-10 left-[16%] right-[16%] h-px bg-white/10" />
+          <div className="hidden lg:block absolute top-10 left-[16%] right-[16%] h-px bg-[#AFEEEE]/10" />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
             {steps.map((step, idx) => {
@@ -50,16 +50,16 @@ export function LandingHowItWorks() {
                 >
                   <div className="relative inline-flex items-center justify-center mb-6">
                     <div className="relative w-20 h-20 rounded-full culinary-glass flex items-center justify-center">
-                      <Icon className="h-8 w-8 text-[#E5E5E5]" strokeWidth={1.6} />
+                      <Icon className="h-8 w-8 text-[#F0F7F7]" strokeWidth={1.6} />
                     </div>
-                    <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-[#E5E5E5] text-[#141414] text-xs font-bold flex items-center justify-center">
+                    <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-[#AFEEEE] text-[#0B1416] text-xs font-bold flex items-center justify-center">
                       {step.number}
                     </div>
                   </div>
-                  <h3 className="font-jakarta text-xl font-bold text-[#E5E5E5] mb-2">
+                  <h3 className="font-jakarta text-xl font-bold text-[#F0F7F7] mb-2">
                     {t(step.titleKey)}
                   </h3>
-                  <p className="text-sm text-[#A3A3A3] leading-relaxed max-w-xs mx-auto">
+                  <p className="text-sm text-[#9BB0B3] leading-relaxed max-w-xs mx-auto">
                     {t(step.descKey)}
                   </p>
                 </motion.div>
