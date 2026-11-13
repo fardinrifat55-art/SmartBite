@@ -211,3 +211,109 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ========================================
+   DARK CULINARY EDITORIAL THEME
+   Applied to landing + auth screens only.
+   Dashboard keeps its forest-green theme.
+   ======================================== */
+
+.culinary-dark {
+  background: #141414;
+  color: #A3A3A3;
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.culinary-dark h1,
+.culinary-dark h2,
+.culinary-dark h3,
+.culinary-dark h4,
+.culinary-dark h5,
+.culinary-dark h6 {
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  color: #E5E5E5;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Smoky warm amber/rust texture for upper background */
+.culinary-smoky {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(58, 38, 24, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(58, 38, 24, 0.25) 0%, transparent 60%),
+    #141414;
+}
+
+/* Dark walnut wood surface for bottom edge */
+.culinary-wood {
+  background:
+    linear-gradient(to bottom, transparent 0%, rgba(46, 31, 24, 0.6) 40%, #2E1F18 100%);
+}
+
+/* Dark glassmorphic surface */
+.culinary-glass {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.culinary-glass-strong {
+  background: rgba(0, 0, 0, 0.60);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+/* Dark outlined input */
+.culinary-input {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #E5E5E5;
+  transition: border-color 0.2s;
+}
+.culinary-input::placeholder {
+  color: #A3A3A3;
+}
+.culinary-input:focus {
+  outline: none;
+  border-color: #E5E5E5;
+}
+
+/* Solid off-white button */
+.culinary-btn-solid {
+  background: #E5E5E5;
+  color: #141414;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.15s;
+}
+.culinary-btn-solid:hover {
+  background: #FFFFFF;
+}
+
+/* Dark glass button */
+.culinary-btn-glass {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #E5E5E5;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.2s;
+}
+.culinary-btn-glass:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Hairline divider */
+.culinary-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Scroll-down pill animation */
+@keyframes scroll-pill {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+.animate-scroll-pill {
+  animation: scroll-pill 2s ease-in-out infinite;
+}

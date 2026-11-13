@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Noto_Sans_Bengali } from "next/font/google";
+import { Inter, Manrope, Plus_Jakarta_Sans, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AppProvider } from "@/components/providers/AppProvider";
@@ -12,6 +12,13 @@ const inter = Inter({
 
 const manrope = Manrope({
   variable: "--font-manrope",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
@@ -58,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${manrope.variable} ${notoBengali.variable} antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${manrope.variable} ${jakarta.variable} ${notoBengali.variable} antialiased bg-background text-foreground`}
       >
         <AppProvider>{children}</AppProvider>
         <Toaster />

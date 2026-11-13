@@ -10,7 +10,7 @@ import { LandingFooter } from "./LandingFooter";
 
 export function LandingScreen() {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="culinary-dark min-h-screen flex flex-col">
       <LandingNavbar />
       <main className="flex-1">
         <LandingHero />
