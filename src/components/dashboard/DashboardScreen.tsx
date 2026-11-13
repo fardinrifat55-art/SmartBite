@@ -86,7 +86,7 @@ export function DashboardScreen() {
   }, [foodDiary]);
 
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
       <DashboardSidebar activeView="dashboard" />
 
       {/* Main content */}
