@@ -11,9 +11,9 @@ import {
   ArrowLeft,
   Check,
   ShieldCheck,
-  Sparkles,
+  Flame,
+  Camera,
 } from "lucide-react";
-import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
@@ -30,7 +30,7 @@ function PasswordStrength({ password }: { password: string }) {
     { label: "Number", test: (p: string) => /\d/.test(p) },
   ];
   const score = checks.filter((c) => c.test(password)).length;
-  const colors = ["bg-[#AFEEEE]/15", "bg-[#EF4444]", "bg-[#F2D15B]", "bg-[#AFEEEE]"];
+  const colors = ["bg-[#DCE4E1]", "bg-[#E06D53]", "bg-[#F2D15B]", "bg-[#2C5E53]"];
 
   return (
     <div className="mt-2">
@@ -40,7 +40,7 @@ function PasswordStrength({ password }: { password: string }) {
             key={i}
             className={cn(
               "h-1 flex-1 rounded-full transition-colors",
-              i < score ? colors[score] : "bg-[#AFEEEE]/10"
+              i < score ? colors[score] : "bg-[#DCE4E1]"
             )}
           />
         ))}
@@ -53,7 +53,7 @@ function PasswordStrength({ password }: { password: string }) {
               key={c.label}
               className={cn(
                 "flex items-center gap-1 text-[11px]",
-                passed ? "text-[#AFEEEE]" : "text-[#F0F7F7]/35"
+                passed ? "text-[#2C5E53]" : "text-[#5A6E69]/50"
               )}
             >
               <Check className="h-3 w-3" />
@@ -96,12 +96,9 @@ export function AuthScreen() {
     if (mode === "signup") {
       if (!name.trim()) return setError("Please enter your full name.");
       if (!email.includes("@")) return setError("Please enter a valid email.");
-      if (password.length < 8)
-        return setError("Password must be at least 8 characters.");
-      if (password !== confirmPassword)
-        return setError("Passwords do not match.");
-      if (!agree)
-        return setError("Please agree to the Terms and Privacy Policy.");
+      if (password.length < 8) return setError("Password must be at least 8 characters.");
+      if (password !== confirmPassword) return setError("Passwords do not match.");
+      if (!agree) return setError("Please agree to the Terms and Privacy Policy.");
     } else {
       if (!email.includes("@")) return setError("Please enter a valid email.");
       if (password.length < 1) return setError("Please enter your password.");
@@ -113,10 +110,7 @@ export function AuthScreen() {
         await signUp(name.trim(), email.trim(), password);
         setView("onboarding");
       } else {
-        if (
-          email.trim().toLowerCase() === DEMO_EMAIL &&
-          password === DEMO_PASSWORD
-        ) {
+        if (email.trim().toLowerCase() === DEMO_EMAIL && password === DEMO_PASSWORD) {
           await signInDemo();
         } else {
           await signIn(email.trim(), password);
@@ -154,53 +148,87 @@ export function AuthScreen() {
   };
 
   return (
-    <div className="culinary-smoky min-h-screen flex flex-col overflow-hidden relative">
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full bg-[#AFEEEE]/8 blur-3xl pointer-events-none" />
-
+    <div className="min-h-screen bg-[#F4F7F6] flex flex-col">
       {/* Top bar */}
-      <div className="relative z-10 flex items-center justify-between p-5 sm:p-6">
+      <div className="flex items-center justify-between p-5 sm:p-6">
         <button
           onClick={() => setView("landing")}
-          className="flex items-center gap-1.5 text-sm font-medium text-[#9BB0B3] hover:text-[#F0F7F7] transition-colors"
+          className="flex items-center gap-1.5 text-sm font-medium text-[#5A6E69] hover:text-[#2C5E53] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
-          <span className="hidden sm:inline">{t("nav.home")}</span>
+          <span className="hidden sm:inline">Back to Home</span>
         </button>
-        <span className="font-jakarta text-base font-extrabold tracking-tight text-[#F0F7F7]">
-          Nutrilen<span className="text-[#9BB0B3]"> AI</span>
-        </span>
-        <LanguageSwitcher variant="light" />
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#2C5E53] flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M12 21C7 17 4 13.5 4 9.5C4 6 6.5 4 9.5 4C11 4 12 4.8 12 6C12 4.8 13 4 14.5 4C17.5 4 20 6 20 9.5C20 13.5 17 17 12 21Z" fill="#E3EDE9" />
+              <circle cx="16.5" cy="7.5" r="1.5" fill="#E06D53" />
+            </svg>
+          </div>
+          <span className="font-jakarta text-base font-extrabold tracking-tight text-[#162623]">
+            Nutrilen<span className="text-[#E06D53]"> AI</span>
+          </span>
+        </div>
+        <LanguageSwitcher />
       </div>
 
-      {/* Centered glass card */}
-      <div className="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6 pb-10">
-        <div className="w-full max-w-md">
+      {/* Split-screen content */}
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 pb-10">
+        <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+          {/* === Left: Login card === */}
           <AnimatePresence mode="wait">
             <motion.div
               key={mode}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.25 }}
-              className="culinary-glass rounded-2xl p-6 sm:p-8"
+              className="bg-white rounded-3xl border border-[#DCE4E1] shadow-[0_8px_40px_rgba(22,38,35,0.08)] p-6 sm:p-8 flex flex-col justify-center"
             >
-              {/* Heading */}
-              <h1 className="font-jakarta text-2xl sm:text-3xl font-extrabold text-[#F0F7F7] tracking-tight">
-                {mode === "signin" ? t("auth.welcomeBack") : t("auth.startJourney")}
+              {/* Sage badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E3EDE9] text-[#2C5E53] mb-5 w-fit">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                <span className="text-xs font-semibold">
+                  {mode === "signin" ? "Welcome back to Nutrilen AI" : "Join Nutrilen AI"}
+                </span>
+              </div>
+
+              <h1 className="font-jakarta text-2xl sm:text-3xl font-extrabold text-[#162623] tracking-tight">
+                {mode === "signin" ? "Sign in to your account" : "Create your account"}
               </h1>
-              <p className="mt-2 text-sm text-[#9BB0B3]">
+              <p className="mt-2 text-sm text-[#5A6E69]">
                 {mode === "signin" ? t("auth.welcomeSubtitle") : t("auth.startSubtitle")}
               </p>
 
-              <form onSubmit={handleSubmit} className="mt-7 space-y-4">
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                {/* Google button */}
+                <button
+                  type="button"
+                  onClick={handleGoogle}
+                  disabled={loading}
+                  className="w-full h-12 rounded-xl border border-[#DCE4E1] bg-white hover:bg-[#F4F7F6] text-[#162623] font-medium text-sm flex items-center justify-center gap-2 transition-colors"
+                >
+                  <GoogleIcon className="h-4 w-4" />
+                  {t("auth.continueGoogle")}
+                </button>
+
+                {/* Divider */}
+                <div className="relative py-1">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-[#DCE4E1]" />
+                  </div>
+                  <div className="relative flex justify-center">
+                    <span className="bg-white px-3 text-xs text-[#5A6E69]">or</span>
+                  </div>
+                </div>
+
                 {mode === "signup" && (
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#5A6E69] uppercase tracking-wide">
                       {t("auth.fullName")}
                     </label>
                     <div className="relative">
-                      <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
+                      <UserIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5A6E69]" />
                       <input
                         type="text"
                         value={name}
@@ -214,11 +242,11 @@ export function AuthScreen() {
                 )}
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
+                  <label className="text-xs font-medium text-[#5A6E69] uppercase tracking-wide">
                     {t("auth.email")}
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5A6E69]" />
                     <input
                       type="email"
                       value={email}
@@ -232,7 +260,7 @@ export function AuthScreen() {
 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#5A6E69] uppercase tracking-wide">
                       {t("auth.password")}
                     </label>
                     {mode === "signin" && (
@@ -246,14 +274,14 @@ export function AuthScreen() {
                               : "Enter your email first, then click this link again.",
                           })
                         }
-                        className="text-xs text-[#AFEEEE] hover:underline font-medium"
+                        className="text-xs text-[#2C5E53] hover:underline font-medium"
                       >
                         {t("auth.forgotPassword")}
                       </button>
                     )}
                   </div>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5A6E69]" />
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
@@ -265,7 +293,7 @@ export function AuthScreen() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9BB0B3] hover:text-[#F0F7F7]"
+                      className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5A6E69] hover:text-[#2C5E53]"
                       aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -278,11 +306,11 @@ export function AuthScreen() {
 
                 {mode === "signup" && (
                   <div className="space-y-1.5">
-                    <label className="text-xs font-medium text-[#9BB0B3] uppercase tracking-wide">
+                    <label className="text-xs font-medium text-[#5A6E69] uppercase tracking-wide">
                       {t("auth.confirmPassword")}
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#9BB0B3]" />
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5A6E69]" />
                       <input
                         type={showConfirm ? "text" : "password"}
                         value={confirmPassword}
@@ -294,7 +322,7 @@ export function AuthScreen() {
                       <button
                         type="button"
                         onClick={() => setShowConfirm((v) => !v)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9BB0B3] hover:text-[#F0F7F7]"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#5A6E69] hover:text-[#2C5E53]"
                         aria-label={showConfirm ? "Hide password" : "Show password"}
                       >
                         {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -310,12 +338,12 @@ export function AuthScreen() {
                       onClick={() => setRemember((v) => !v)}
                       className={cn(
                         "w-5 h-5 rounded border flex items-center justify-center transition-all",
-                        remember ? "bg-[#AFEEEE] border-[#F0F7F7]" : "border-[#AFEEEE]/20"
+                        remember ? "bg-[#2C5E53] border-[#2C5E53]" : "border-[#DCE4E1]"
                       )}
                     >
-                      {remember && <Check className="h-3 w-3 text-[#0B1416]" strokeWidth={3} />}
+                      {remember && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
                     </button>
-                    <span className="text-sm text-[#9BB0B3] cursor-pointer" onClick={() => setRemember((v) => !v)}>
+                    <span className="text-sm text-[#5A6E69] cursor-pointer" onClick={() => setRemember((v) => !v)}>
                       {t("auth.remember")}
                     </span>
                   </div>
@@ -326,28 +354,28 @@ export function AuthScreen() {
                       onClick={() => setAgree((v) => !v)}
                       className={cn(
                         "w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 mt-0.5 transition-all",
-                        agree ? "bg-[#AFEEEE] border-[#F0F7F7]" : "border-[#AFEEEE]/20"
+                        agree ? "bg-[#2C5E53] border-[#2C5E53]" : "border-[#DCE4E1]"
                       )}
                     >
-                      {agree && <Check className="h-3 w-3 text-[#0B1416]" strokeWidth={3} />}
+                      {agree && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
                     </button>
-                    <span className="text-sm text-[#9BB0B3] leading-relaxed cursor-pointer" onClick={() => setAgree((v) => !v)}>
+                    <span className="text-sm text-[#5A6E69] leading-relaxed cursor-pointer" onClick={() => setAgree((v) => !v)}>
                       {t("auth.agreeTerms")}
                     </span>
                   </div>
                 )}
 
                 {error && (
-                  <div className="rounded-xl bg-[#EF4444]/10 border border-[#EF4444]/30 px-4 py-3 text-sm text-[#EF4444]">
+                  <div className="rounded-xl bg-[#E06D53]/10 border border-[#E06D53]/30 px-4 py-3 text-sm text-[#E06D53]">
                     {error}
                   </div>
                 )}
 
-                {/* Solid off-white primary button */}
+                {/* Coral Sign In button */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="culinary-btn-solid w-full h-12 rounded-xl disabled:opacity-60"
+                  className="w-full h-12 rounded-xl bg-[#E06D53] hover:bg-[#C95B42] text-white font-bold text-sm transition-colors shadow-sm disabled:opacity-60"
                 >
                   {loading
                     ? "..."
@@ -356,45 +384,24 @@ export function AuthScreen() {
                       : t("common.signIn")}
                 </button>
 
-                {/* Divider */}
-                <div className="relative py-1">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-[#AFEEEE]/8" />
-                  </div>
-                  <div className="relative flex justify-center">
-                    <span className="bg-transparent px-3 text-xs text-[#9BB0B3]">or</span>
-                  </div>
-                </div>
-
-                {/* Dark glass Google button */}
-                <button
-                  type="button"
-                  onClick={handleGoogle}
-                  disabled={loading}
-                  className="culinary-btn-glass w-full h-12 rounded-xl font-medium text-sm flex items-center justify-center gap-2"
-                >
-                  <GoogleIcon className="h-4 w-4" />
-                  {t("auth.continueGoogle")}
-                </button>
-
                 {/* Demo account — sign-in mode only */}
                 {mode === "signin" && (
-                  <div className="mt-3 rounded-xl border border-dashed border-[#AFEEEE]/20 bg-[#AFEEEE]/5 p-4">
+                  <div className="mt-2 rounded-xl border border-dashed border-[#2C5E53]/30 bg-[#E3EDE9]/30 p-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#AFEEEE]/12 flex items-center justify-center flex-shrink-0">
-                        <ShieldCheck className="h-4 w-4 text-[#AFEEEE]" strokeWidth={1.8} />
+                      <div className="w-9 h-9 rounded-lg bg-[#2C5E53] flex items-center justify-center flex-shrink-0">
+                        <ShieldCheck className="h-4 w-4 text-[#E3EDE9]" strokeWidth={1.8} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm font-bold text-[#F0F7F7]">Demo Account</div>
-                        <div className="text-xs text-[#9BB0B3] mt-0.5 leading-relaxed">
+                        <div className="text-sm font-bold text-[#162623]">Demo Account</div>
+                        <div className="text-xs text-[#5A6E69] mt-0.5 leading-relaxed">
                           Skip onboarding and explore with pre-filled data.
                         </div>
                         <div className="mt-2 space-y-1 text-xs">
-                          <div className="flex items-center gap-1.5 text-[#9BB0B3]">
+                          <div className="flex items-center gap-1.5 text-[#5A6E69]">
                             <Mail className="h-3 w-3" />
                             <span className="font-mono">{DEMO_EMAIL}</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-[#9BB0B3]">
+                          <div className="flex items-center gap-1.5 text-[#5A6E69]">
                             <Lock className="h-3 w-3" />
                             <span className="font-mono">{DEMO_PASSWORD}</span>
                           </div>
@@ -405,7 +412,7 @@ export function AuthScreen() {
                       type="button"
                       onClick={handleDemo}
                       disabled={loading}
-                      className="culinary-btn-solid w-full mt-3 h-10 rounded-lg text-sm"
+                      className="w-full mt-3 h-10 rounded-lg bg-[#2C5E53] hover:bg-[#2C5E53]/90 text-[#E3EDE9] font-semibold text-sm transition-colors"
                     >
                       {loading ? "..." : "Try Demo Account"}
                     </button>
@@ -414,17 +421,60 @@ export function AuthScreen() {
               </form>
 
               {/* Footer link */}
-              <p className="mt-6 text-center text-sm text-[#9BB0B3]">
+              <p className="mt-6 text-center text-sm text-[#5A6E69]">
                 {mode === "signin" ? t("auth.noAccount") : t("auth.haveAccount")}{" "}
                 <button
                   onClick={() => switchMode(mode === "signin" ? "signup" : "signin")}
-                  className="text-[#AFEEEE] font-semibold hover:underline"
+                  className="text-[#2C5E53] font-semibold hover:underline underline-offset-2"
                 >
                   {mode === "signin" ? t("auth.createAccount") : t("common.signIn")}
                 </button>
               </p>
             </motion.div>
           </AnimatePresence>
+
+          {/* === Right: Food photo with frosted widgets === */}
+          <div className="hidden lg:block relative rounded-3xl overflow-hidden shadow-[0_8px_40px_rgba(22,38,35,0.12)] min-h-[520px]">
+            <img
+              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=700&q=80&auto=format&fit=crop"
+              alt="Fresh healthy meal"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#162623]/30 via-transparent to-transparent" />
+
+            {/* Widget: Daily Calories — top-left */}
+            <div className="absolute top-6 left-6 bg-white/85 backdrop-blur-md border border-[#DCE4E1] rounded-2xl shadow-sm p-3.5 w-44 animate-float-soft">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-7 h-7 rounded-lg bg-[#E3EDE9] flex items-center justify-center">
+                  <Flame className="h-3.5 w-3.5 text-[#2C5E53]" />
+                </div>
+                <span className="text-xs font-semibold text-[#2C5E53]">Daily Calories</span>
+              </div>
+              <div className="flex items-baseline gap-1">
+                <span className="text-xl font-bold text-[#162623]">1,250</span>
+                <span className="text-xs text-[#5A6E69]">/ 2,000</span>
+              </div>
+              <div className="mt-2 h-1.5 bg-[#E3EDE9] rounded-full overflow-hidden">
+                <div className="h-full bg-[#2C5E53] rounded-full" style={{ width: "63%" }} />
+              </div>
+            </div>
+
+            {/* Widget: AI Recognition — bottom-right */}
+            <div className="absolute bottom-6 right-6 bg-white/85 backdrop-blur-md border border-[#DCE4E1] rounded-2xl shadow-sm p-3 w-40 animate-float-soft-delayed">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#E3EDE9] flex items-center justify-center">
+                  <Camera className="h-4 w-4 text-[#2C5E53]" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#162623]">AI Recognition</div>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2C5E53] animate-pulse" />
+                    <span className="text-[10px] text-[#5A6E69]">AI active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

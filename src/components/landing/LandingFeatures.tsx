@@ -25,7 +25,7 @@ export function LandingFeatures() {
   const { t } = useI18n();
 
   return (
-    <section id="features" className="culinary-dark py-20 sm:py-24 lg:py-28">
+    <section id="features" className="bg-[#F4F7F6] py-20 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,10 +34,10 @@ export function LandingFeatures() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto"
         >
-          <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#F0F7F7] tracking-tight">
+          <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#162623] tracking-tight">
             {t("features.title")}
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#9BB0B3]">
+          <p className="mt-4 text-base sm:text-lg text-[#5A6E69]">
             {t("features.subtitle")}
           </p>
         </motion.div>
@@ -52,15 +52,18 @@ export function LandingFeatures() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group culinary-glass rounded-2xl p-6 hover:bg-[#AFEEEE]/10 transition-all duration-300"
+                className="group bg-white rounded-2xl border border-[#DCE4E1] p-6 shadow-sm hover:shadow-md transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#AFEEEE]/8 flex items-center justify-center mb-5 group-hover:bg-[#AFEEEE]/12 transition-colors">
-                  <Icon className="h-6 w-6 text-[#F0F7F7]" strokeWidth={1.6} />
+                <div className="w-12 h-12 rounded-xl bg-[#E3EDE9] flex items-center justify-center mb-5 group-hover:bg-[#2C5E53] transition-colors">
+                  <Icon
+                    className="h-6 w-6 text-[#2C5E53] group-hover:text-[#E3EDE9] transition-colors"
+                    strokeWidth={1.6}
+                  />
                 </div>
-                <h3 className="font-jakarta text-lg font-bold text-[#F0F7F7] mb-2">
+                <h3 className="font-jakarta text-lg font-bold text-[#162623] mb-2">
                   {t(f.titleKey)}
                 </h3>
-                <p className="text-sm text-[#9BB0B3] leading-relaxed">
+                <p className="text-sm text-[#5A6E69] leading-relaxed">
                   {t(f.descKey)}
                 </p>
               </motion.div>

@@ -38,7 +38,7 @@ export function LanguageSwitcher({
             "gap-1.5 rounded-full px-3",
             isLight
               ? "text-[#F0F7F7]/90 hover:bg-[#AFEEEE]/10 hover:text-[#F0F7F7]"
-              : "text-forest hover:bg-lime-soft/40"
+              : "text-[#5A6E69] hover:bg-[#E3EDE9] hover:text-[#2C5E53]"
           )}
           aria-label={t("settings.language")}
         >
