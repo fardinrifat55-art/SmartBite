@@ -5,6 +5,7 @@ import { LandingNavbar } from "./LandingNavbar";
 import { LandingHero } from "./LandingHero";
 import { LandingFeatures } from "./LandingFeatures";
 import { LandingHowItWorks } from "./LandingHowItWorks";
+import { DashboardPreview } from "./DashboardPreview";
 import { LandingCTA } from "./LandingCTA";
 import { LandingFooter } from "./LandingFooter";
 
@@ -16,6 +17,7 @@ export function LandingScreen() {
         <LandingHero />
         <LandingFeatures />
         <LandingHowItWorks />
+        <DashboardPreview />
         <LandingCTA />
       </main>
       <LandingFooter />
