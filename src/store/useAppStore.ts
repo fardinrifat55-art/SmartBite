@@ -20,6 +20,7 @@ import {
   SAMPLE_TASKS,
   SAMPLE_REMINDERS,
   DEMO_PROFILE,
+  DEMO_EMAIL,
   uid,
 } from "@/lib/sample-data";
 
@@ -63,6 +64,7 @@ export interface AppState {
   isAuthed: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (name: string, email: string, password: string) => Promise<void>;
+  signInDemo: () => Promise<void>;
   signOut: () => void;
 
   // Onboarding
@@ -150,6 +152,35 @@ export const useAppStore = create<AppState>()(
             createdAt: new Date().toISOString(),
           },
           isAuthed: true,
+        });
+      },
+      signInDemo: async () => {
+        // Demo account: complete profile + targets + pre-populated food diary
+        const demoProfile: OnboardingProfile = {
+          gender: DEMO_PROFILE.gender,
+          age: DEMO_PROFILE.age,
+          height: DEMO_PROFILE.height,
+          currentWeight: DEMO_PROFILE.currentWeight,
+          goalWeight: DEMO_PROFILE.goalWeight,
+          activityLevel: DEMO_PROFILE.activityLevel,
+          goal: DEMO_PROFILE.goal,
+        };
+        const demoTargets = calculateTargets(demoProfile);
+        set({
+          user: {
+            id: uid(),
+            fullName: DEMO_PROFILE.fullName,
+            email: DEMO_EMAIL,
+            createdAt: new Date().toISOString(),
+          },
+          isAuthed: true,
+          onboardingProfile: demoProfile,
+          targets: demoTargets,
+          foodDiary: SAMPLE_FOOD_DIARY,
+          tasks: SAMPLE_TASKS,
+          reminders: SAMPLE_REMINDERS,
+          streak: 7,
+          view: "dashboard",
         });
       },
       signOut: () => {

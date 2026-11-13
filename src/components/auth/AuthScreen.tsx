@@ -22,6 +22,7 @@ import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { DEMO_EMAIL, DEMO_PASSWORD } from "@/lib/sample-data";
 
 type AuthMode = "signin" | "signup";
 
@@ -75,6 +76,7 @@ export function AuthScreen() {
   const setView = useAppStore((s) => s.setView);
   const signIn = useAppStore((s) => s.signIn);
   const signUp = useAppStore((s) => s.signUp);
+  const signInDemo = useAppStore((s) => s.signInDemo);
   const isAuthed = useAppStore((s) => s.isAuthed);
 
   const mode: AuthMode = view === "signup" ? "signup" : "signin";
@@ -115,13 +117,20 @@ export function AuthScreen() {
     try {
       if (mode === "signup") {
         await signUp(name.trim(), email.trim(), password);
+        setView("onboarding");
       } else {
-        await signIn(email.trim(), password);
+        // Demo credentials → skip onboarding, go straight to dashboard
+        if (
+          email.trim().toLowerCase() === DEMO_EMAIL &&
+          password === DEMO_PASSWORD
+        ) {
+          await signInDemo();
+          // signInDemo sets view to "dashboard" directly
+        } else {
+          await signIn(email.trim(), password);
+          setView("onboarding");
+        }
       }
-      // After auth, route to onboarding if new, dashboard if returning
-      // For this prototype, send to onboarding so they complete profile
-      // (unless they already have onboardingProfile in storage)
-      setView("onboarding");
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -137,6 +146,16 @@ export function AuthScreen() {
       setView("onboarding");
       setLoading(false);
     }, 800);
+  };
+
+  const handleDemo = async () => {
+    setLoading(true);
+    try {
+      await signInDemo();
+      // signInDemo sets view to "dashboard" directly (skips onboarding)
+    } finally {
+      setLoading(false);
+    }
   };
 
   const switchMode = (m: AuthMode) => {
@@ -419,6 +438,42 @@ export function AuthScreen() {
                     <GoogleIcon className="h-4 w-4 mr-2" />
                     {t("auth.continueGoogle")}
                   </Button>
+
+                  {/* Demo account — sign-in mode only */}
+                  {mode === "signin" && (
+                    <div className="mt-3 rounded-2xl border-2 border-dashed border-lime/40 bg-lime-soft/20 p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-lime flex items-center justify-center flex-shrink-0">
+                          <ShieldCheck className="h-4.5 w-4.5 text-forest" strokeWidth={1.8} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-bold text-forest">Demo Account</div>
+                          <div className="text-xs text-forest/55 mt-0.5 leading-relaxed">
+                            Skip onboarding and explore the app with pre-filled data —
+                            meals, targets, and a 7-day streak.
+                          </div>
+                          <div className="mt-2 grid grid-cols-1 gap-1 text-xs">
+                            <div className="flex items-center gap-1.5 text-forest/60">
+                              <Mail className="h-3 w-3" />
+                              <span className="font-mono">demo@nutrilen.ai</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-forest/60">
+                              <Lock className="h-3 w-3" />
+                              <span className="font-mono">demo1234</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        onClick={handleDemo}
+                        disabled={loading}
+                        className="w-full mt-3 h-10 rounded-xl bg-lime text-forest font-semibold hover:bg-lime/90 shadow-sm"
+                      >
+                        {loading ? "..." : "Try Demo Account"}
+                      </Button>
+                    </div>
+                  )}
                 </form>
 
                 {/* Footer link */}

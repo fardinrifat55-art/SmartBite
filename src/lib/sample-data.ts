@@ -275,6 +275,10 @@ export const DEMO_PROFILE = {
   goal: "muscle" as const,
 };
 
+// Demo account credentials (shown on the sign-in page for one-click access)
+export const DEMO_EMAIL = "demo@nutrilen.ai";
+export const DEMO_PASSWORD = "demo1234";
+
 // Generate unique id
 export function uid(): string {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
