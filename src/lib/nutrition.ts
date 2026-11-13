@@ -70,7 +70,7 @@ export const GOAL_MACROS: Record<
 // Female: BMR = 10*weight + 6.25*height - 5*age - 161
 // For "prefer not to say", use average of both (-78 offset midpoint)
 export function calculateBMR(profile: UserProfile): number {
-  const { weight: weightKg, height: heightCm, age, gender } = profile;
+  const { currentWeight: weightKg, height: heightCm, age, gender } = profile;
   const base = 10 * weightKg + 6.25 * heightCm - 5 * age;
   switch (gender) {
     case "male":
