@@ -28,6 +28,7 @@ import { ProgressRing } from "./ProgressRing";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
+import { useToast } from "@/hooks/use-toast";
 import { formatNumber } from "@/lib/nutrition";
 import { SAMPLE_INSIGHTS } from "@/lib/sample-data";
 import type { FoodItem, MealType } from "@/lib/sample-data";
@@ -49,6 +50,7 @@ export function DashboardScreen() {
   const toggleTask = useAppStore((s) => s.toggleTask);
   const toggleReminder = useAppStore((s) => s.toggleReminder);
   const setView = useAppStore((s) => s.setView);
+  const { toast } = useToast();
 
   const today = new Date();
   const dateStr = today.toLocaleDateString(lang === "bn" ? "bn-BD" : "en-US", {
@@ -115,6 +117,7 @@ export function DashboardScreen() {
               </div>
               {/* Notifications */}
               <button
+                onClick={() => toast({ title: "No new notifications", description: "You're all caught up for today." })}
                 className="relative w-10 h-10 rounded-full bg-white border border-forest/10 flex items-center justify-center text-forest/60 hover:text-forest hover:border-forest/20 transition-colors"
                 aria-label={t("common.notifications")}
               >
@@ -454,6 +457,7 @@ export function DashboardScreen() {
                 <Button
                   size="sm"
                   variant="outline"
+                  onClick={() => setView("scanner")}
                   className="rounded-full border-forest/15 text-forest hover:bg-lime-soft/30 h-8 text-xs"
                 >
                   <Plus className="mr-1 h-3.5 w-3.5" />

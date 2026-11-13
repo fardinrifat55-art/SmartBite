@@ -22,6 +22,7 @@ import { Switch } from "@/components/ui/switch";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
+import { useToast } from "@/hooks/use-toast";
 import { LANGS, LANG_LABELS } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +51,7 @@ export function SettingsScreen() {
   const signOut = useAppStore((s) => s.signOut);
   const [active, setActive] = useState<SettingsSection>("profile");
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const { toast } = useToast();
 
   const memberSince = user?.createdAt
     ? new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })
@@ -197,7 +199,7 @@ function ProfileSection({ user, memberSince, targets }: any) {
           </div>
         </div>
       </div>
-      <Button variant="outline" className="rounded-full border-forest/15 text-forest">
+      <Button variant="outline" onClick={() => toast({ title: "Edit profile", description: "Profile editing is coming in the next iteration." })} className="rounded-full border-forest/15 text-forest">
         {t("settings.editProfile")}
       </Button>
       {targets && (
@@ -425,6 +427,7 @@ function PreferencesSection({
 
 function PrivacySection() {
   const { t } = useI18n();
+  const { toast } = useToast();
   const items = [
     { label: "Change password", desc: "Update your account password" },
     { label: "Manage account security", desc: "Two-factor authentication, sessions" },
@@ -438,6 +441,7 @@ function PrivacySection() {
         {items.map((it, i) => (
           <button
             key={i}
+            onClick={() => toast({ title: it.label, description: "This feature is coming in the next iteration." })}
             className="w-full text-left flex items-center justify-between p-3 rounded-xl bg-cream/30 hover:bg-cream/50"
           >
             <div>
@@ -448,7 +452,7 @@ function PrivacySection() {
           </button>
         ))}
       </div>
-      <button className="w-full p-3 rounded-xl border-2 border-fat/20 text-fat hover:bg-fat/5 text-sm font-medium">
+      <button onClick={() => toast({ title: "Delete account", description: "This action cannot be undone. Contact hello@nutrilen.ai to request account deletion.", variant: "destructive" })} className="w-full p-3 rounded-xl border-2 border-fat/20 text-fat hover:bg-fat/5 text-sm font-medium">
         Delete account
       </button>
     </div>

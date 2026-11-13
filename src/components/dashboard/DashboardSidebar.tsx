@@ -19,21 +19,23 @@ import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore, type View } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
   view: View;
   labelKey: string;
   icon: React.ElementType;
+  comingSoon?: boolean;
 }
 
 const navItems: NavItem[] = [
   { view: "dashboard", labelKey: "sidebar.dashboard", icon: LayoutDashboard },
-  { view: "dashboard", labelKey: "sidebar.foodDiary", icon: BookOpen },
+  { view: "dashboard", labelKey: "sidebar.foodDiary", icon: BookOpen, comingSoon: true },
   { view: "scanner", labelKey: "sidebar.scanner", icon: ScanLine },
-  { view: "scanner", labelKey: "sidebar.shopping", icon: ShoppingBasket },
-  { view: "dashboard", labelKey: "sidebar.mealPlanner", icon: CalendarHeart },
-  { view: "dashboard", labelKey: "sidebar.analytics", icon: BarChart3 },
+  { view: "scanner", labelKey: "sidebar.shopping", icon: ShoppingBasket, comingSoon: true },
+  { view: "dashboard", labelKey: "sidebar.mealPlanner", icon: CalendarHeart, comingSoon: true },
+  { view: "dashboard", labelKey: "sidebar.analytics", icon: BarChart3, comingSoon: true },
   { view: "settings", labelKey: "sidebar.profile", icon: Settings },
 ];
 
@@ -42,11 +44,20 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
   const setView = useAppStore((s) => s.setView);
   const signOut = useAppStore((s) => s.signOut);
   const user = useAppStore((s) => s.user);
+  const { toast } = useToast();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
-  const handleNav = (view: View) => {
-    setView(view);
+  const handleNav = (item: NavItem) => {
+    if (item.comingSoon) {
+      toast({
+        title: t(item.labelKey),
+        description: "Coming in the next iteration.",
+      });
+      setMobileOpen(false);
+      return;
+    }
+    setView(item.view);
     setMobileOpen(false);
   };
 
@@ -83,7 +94,7 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
             return (
               <button
                 key={`${item.labelKey}-${idx}`}
-                onClick={() => handleNav(item.view)}
+                onClick={() => handleNav(item)}
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
                   isActive
@@ -93,6 +104,11 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
               >
                 <Icon className="h-4.5 w-4.5 flex-shrink-0" strokeWidth={1.8} />
                 <span className="flex-1 text-left">{t(item.labelKey)}</span>
+                {item.comingSoon && (
+                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-white/10 text-white/50 uppercase tracking-wide">
+                    Soon
+                  </span>
+                )}
               </button>
             );
           })}

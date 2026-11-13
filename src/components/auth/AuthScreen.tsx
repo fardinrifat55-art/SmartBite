@@ -20,6 +20,7 @@ import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 type AuthMode = "signin" | "signup";
@@ -82,6 +83,7 @@ export function AuthScreen() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   // Form fields
   const [name, setName] = useState("");
@@ -287,6 +289,14 @@ export function AuthScreen() {
                       {mode === "signin" && (
                         <button
                           type="button"
+                          onClick={() =>
+                            toast({
+                              title: "Password reset",
+                              description: email
+                                ? `A reset link has been sent to ${email}.`
+                                : "Enter your email first, then click this link again.",
+                            })
+                          }
                           className="text-xs text-lime hover:underline font-medium"
                         >
                           {t("auth.forgotPassword")}

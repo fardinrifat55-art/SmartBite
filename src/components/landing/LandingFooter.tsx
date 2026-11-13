@@ -6,10 +6,12 @@ import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
+import { useToast } from "@/hooks/use-toast";
 
 export function LandingFooter() {
   const { t } = useI18n();
   const setView = useAppStore((s) => s.setView);
+  const { toast } = useToast();
 
   const featureLinks = [
     { label: t("features.scanner.title"), href: "#features" },
@@ -109,10 +111,16 @@ export function LandingFooter() {
             © {new Date().getFullYear()} Nutrilen AI. {t("footer.rights")}
           </div>
           <div className="flex items-center gap-5">
-            <button className="text-xs text-white/50 hover:text-white transition-colors">
+            <button
+              onClick={() => toast({ title: t("footer.privacy"), description: "This page is being prepared. Contact hello@nutrilen.ai for privacy questions." })}
+              className="text-xs text-white/50 hover:text-white transition-colors"
+            >
               {t("footer.privacy")}
             </button>
-            <button className="text-xs text-white/50 hover:text-white transition-colors">
+            <button
+              onClick={() => toast({ title: t("footer.terms"), description: "This page is being prepared. Contact hello@nutrilen.ai for terms questions." })}
+              className="text-xs text-white/50 hover:text-white transition-colors"
+            >
               {t("footer.terms")}
             </button>
           </div>
