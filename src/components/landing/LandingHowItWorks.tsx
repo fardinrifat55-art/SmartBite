@@ -33,7 +33,7 @@ export function LandingHowItWorks() {
         </motion.div>
 
         <div className="mt-16 relative">
-          <div className="hidden lg:block absolute top-10 left-[16%] right-[16%] h-px bg-[#DCE4E1]" />
+          <div className="hidden lg:block absolute top-10 left-[16%] right-[16%] h-0.5 bg-[#9CB0A8]" />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
             {steps.map((step, idx) => {
