@@ -54,7 +54,7 @@ export function LandingFeatures() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group bg-[#E2ECE9] border border-[#CBDCD7] rounded-2xl p-6 hover:shadow-[0_12px_36px_rgba(19,28,22,0.08)] hover:border-[#A0B4AC] transition-all duration-300"
+                className="group bg-[#E2ECE9] border border-[#CBDCD7] rounded-2xl p-7 sm:p-8 hover:shadow-[0_12px_36px_rgba(19,28,22,0.08)] hover:border-[#A0B4AC] transition-all duration-300"
               >
                 {/* Circular icon badge */}
                 <div className="w-12 h-12 rounded-full bg-[#D1E2DE] flex items-center justify-center mb-5 group-hover:bg-[#2C5E53] transition-colors">
@@ -63,10 +63,10 @@ export function LandingFeatures() {
                     strokeWidth={1.6}
                   />
                 </div>
-                <h3 className="font-jakarta text-lg font-bold text-[#131C16] mb-2">
+                <h3 className="font-jakarta text-xl sm:text-2xl font-extrabold text-[#131C16] mb-3 tracking-tight">
                   {t(f.titleKey)}
                 </h3>
-                <p className="text-sm text-[#4A5A55] leading-relaxed">
+                <p className="text-sm sm:text-base text-[#4A5A55] leading-relaxed">
                   {t(f.descKey)}
                 </p>
               </motion.div>
