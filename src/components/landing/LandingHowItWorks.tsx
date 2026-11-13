@@ -15,7 +15,7 @@ export function LandingHowItWorks() {
   const { t } = useI18n();
 
   return (
-    <section id="how" className="bg-[#E3EDE9]/30 py-20 sm:py-24 lg:py-28 border-t border-[#DCE4E1]">
+    <section id="how" className="bg-[#F4F7F6] py-20 sm:py-24 lg:py-28 border-t border-[#DCE4E1]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export function LandingHowItWorks() {
           <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#162623] tracking-tight">
             {t("how.title")}
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#5A6E69]">
+          <p className="mt-4 text-base sm:text-lg text-[#4A5A55]">
             {t("how.subtitle")}
           </p>
         </motion.div>
@@ -58,7 +58,7 @@ export function LandingHowItWorks() {
                   <h3 className="font-jakarta text-xl font-bold text-[#162623] mb-2">
                     {t(step.titleKey)}
                   </h3>
-                  <p className="text-sm text-[#5A6E69] leading-relaxed max-w-xs mx-auto">
+                  <p className="text-sm text-[#4A5A55] leading-relaxed max-w-xs mx-auto">
                     {t(step.descKey)}
                   </p>
                 </motion.div>

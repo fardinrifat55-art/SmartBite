@@ -30,23 +30,23 @@ export function LandingFooter() {
   };
 
   return (
-    <footer id="contact" className="bg-[#162623] text-[#E3EDE9] mt-auto">
+    <footer id="contact" className="bg-[#162623] text-[#A0B4AC] mt-auto">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#2C5E53] flex items-center justify-center">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 21C7 17 4 13.5 4 9.5C4 6 6.5 4 9.5 4C11 4 12 4.8 12 6C12 4.8 13 4 14.5 4C17.5 4 20 6 20 9.5C20 13.5 17 17 12 21Z" fill="#E3EDE9" />
-                  <circle cx="16.5" cy="7.5" r="1.5" fill="#E06D53" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#2C5E53] flex items-center justify-center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 20.5C8.5 17.5 6 14.5 6 11.5C6 9 7.8 7.5 10 7.5C11.1 7.5 12 8.2 12 9C12 8.2 12.9 7.5 14 7.5C16.2 7.5 18 9 18 11.5C18 14.5 15.5 17.5 12 20.5Z" fill="#FFFFFF" />
+                  <path d="M9 11.5C9 10.7 9.7 10 10.5 10" stroke="#E06D53" strokeWidth="1.2" strokeLinecap="round" fill="none" />
                 </svg>
               </div>
               <span className="font-jakarta text-lg font-extrabold tracking-tight text-white">
                 Nutrilen<span className="text-[#E06D53]"> AI</span>
               </span>
             </div>
-            <p className="mt-4 text-sm text-[#E3EDE9]/60 leading-relaxed max-w-xs">
+            <p className="mt-4 text-sm text-[#A0B4AC]/60 leading-relaxed max-w-xs">
               {t("footer.description")}
             </p>
             <div className="mt-5">
@@ -64,7 +64,7 @@ export function LandingFooter() {
                 <li key={link.label}>
                   <button
                     onClick={() => handleNav(link.href)}
-                    className="text-sm text-[#E3EDE9]/60 hover:text-[#E3EDE9] transition-colors text-left"
+                    className="text-sm text-[#A0B4AC]/60 hover:text-white transition-colors text-left"
                   >
                     {link.label}
                   </button>
@@ -83,7 +83,7 @@ export function LandingFooter() {
                 <li key={link.label}>
                   <button
                     onClick={() => handleNav(link.href)}
-                    className="text-sm text-[#E3EDE9]/60 hover:text-[#E3EDE9] transition-colors text-left"
+                    className="text-sm text-[#A0B4AC]/60 hover:text-white transition-colors text-left"
                   >
                     {link.label}
                   </button>
@@ -98,15 +98,15 @@ export function LandingFooter() {
               {t("footer.contact")}
             </h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2.5 text-sm text-[#E3EDE9]/60">
+              <li className="flex items-start gap-2.5 text-sm text-[#A0B4AC]/60">
                 <Mail className="h-4 w-4 mt-0.5 text-[#E06D53] flex-shrink-0" />
                 <span>hello@nutrilen.ai</span>
               </li>
-              <li className="flex items-start gap-2.5 text-sm text-[#E3EDE9]/60">
+              <li className="flex items-start gap-2.5 text-sm text-[#A0B4AC]/60">
                 <Phone className="h-4 w-4 mt-0.5 text-[#E06D53] flex-shrink-0" />
                 <span>+880 1700 000000</span>
               </li>
-              <li className="flex items-start gap-2.5 text-sm text-[#E3EDE9]/60">
+              <li className="flex items-start gap-2.5 text-sm text-[#A0B4AC]/60">
                 <MapPin className="h-4 w-4 mt-0.5 text-[#E06D53] flex-shrink-0" />
                 <span>Dhaka, Bangladesh</span>
               </li>
@@ -116,19 +116,19 @@ export function LandingFooter() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-[#E3EDE9]/40">
+          <div className="text-xs text-[#A0B4AC]/40">
             © {new Date().getFullYear()} Nutrilen AI. {t("footer.rights")}
           </div>
           <div className="flex items-center gap-5">
             <button
               onClick={() => toast({ title: t("footer.privacy"), description: "This page is being prepared. Contact hello@nutrilen.ai for privacy questions." })}
-              className="text-xs text-[#E3EDE9]/40 hover:text-[#E3EDE9] transition-colors"
+              className="text-xs text-[#A0B4AC]/40 hover:text-white transition-colors"
             >
               {t("footer.privacy")}
             </button>
             <button
               onClick={() => toast({ title: t("footer.terms"), description: "This page is being prepared. Contact hello@nutrilen.ai for terms questions." })}
-              className="text-xs text-[#E3EDE9]/40 hover:text-[#E3EDE9] transition-colors"
+              className="text-xs text-[#A0B4AC]/40 hover:text-white transition-colors"
             >
               {t("footer.terms")}
             </button>

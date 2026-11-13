@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+/* trigger recompile */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -213,16 +214,16 @@
 }
 
 /* ========================================
-   BOTANICAL EUCALYPTUS THEME (60-30-10)
-   60% Soft Mist canvas + white cards
-   30% Deep Eucalyptus Sage secondary
-   10% Warm Apricot-Coral CTA accent
+   SAGE-GREEN BOTANICAL THEME
+   Medium sage-green #A0B4AC hero with
+   stark white #FFFFFF cards + sharp white
+   transition. Coral #E06D53 CTA accent.
    Applied to landing + auth screens only.
    ======================================== */
 
 .culinary-dark {
-  background: #F4F7F6;
-  color: #5A6E69;
+  background: #FFFFFF;
+  color: #4A5A55;
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
@@ -238,32 +239,33 @@
   font-weight: 700;
 }
 
-/* Soft mist canvas (same as culinary-dark, kept for compat) */
+/* Sage-green hero background with gentle ambient gradient */
 .culinary-smoky {
-  background: #F4F7F6;
+  background:
+    radial-gradient(ellipse 100% 80% at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 60% at 80% 80%, rgba(44,94,83,0.10) 0%, transparent 55%),
+    #A0B4AC;
 }
 
-/* Bottom surface — not used in light theme, kept for compat */
+/* Not used but kept for compat */
 .culinary-wood {
   background: transparent;
 }
 
-/* Light frosted-glass surface */
+/* Crisp solid white surface (pops against sage) */
 .culinary-glass {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #DCE4E1;
+  background: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 4px 24px rgba(22,38,35,0.08);
 }
 
 .culinary-glass-strong {
   background: #FFFFFF;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #DCE4E1;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 4px 24px rgba(22,38,35,0.08);
 }
 
-/* Light input with eucalyptus focus */
+/* Input with sage tint and eucalyptus focus */
 .culinary-input {
   background: #F4F7F6;
   border: 1px solid #DCE4E1;
@@ -271,7 +273,7 @@
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 .culinary-input::placeholder {
-  color: #5A6E69;
+  color: #4A5A55;
 }
 .culinary-input:focus {
   outline: none;
@@ -291,15 +293,15 @@
   background: #C95B42;
 }
 
-/* Eucalyptus-bordered secondary button */
+/* White secondary button with dark green outline */
 .culinary-btn-glass {
-  background: transparent;
+  background: #FFFFFF;
   border: 1px solid #2C5E53;
   color: #2C5E53;
   transition: background 0.2s;
 }
 .culinary-btn-glass:hover {
-  background: #E3EDE9;
+  background: #F4F7F6;
 }
 
 /* Hairline divider */

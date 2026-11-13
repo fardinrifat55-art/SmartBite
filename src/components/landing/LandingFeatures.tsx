@@ -25,23 +25,8 @@ export function LandingFeatures() {
   const { t } = useI18n();
 
   return (
-    <section id="features" className="bg-[#F4F7F6] py-20 sm:py-24 lg:py-28">
+    <section id="features" className="bg-white pb-20 sm:pb-24 lg:pb-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto"
-        >
-          <h2 className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#162623] tracking-tight">
-            {t("features.title")}
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#5A6E69]">
-            {t("features.subtitle")}
-          </p>
-        </motion.div>
-
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f, idx) => {
             const Icon = f.icon;
@@ -52,18 +37,18 @@ export function LandingFeatures() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="group bg-white rounded-2xl border border-[#DCE4E1] p-6 shadow-sm hover:shadow-md transition-all duration-300"
+                className="group bg-[#F4F7F6] rounded-2xl border border-[#DCE4E1] p-6 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#E3EDE9] flex items-center justify-center mb-5 group-hover:bg-[#2C5E53] transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#DCE4E1] flex items-center justify-center mb-5 group-hover:bg-[#2C5E53] transition-colors">
                   <Icon
-                    className="h-6 w-6 text-[#2C5E53] group-hover:text-[#E3EDE9] transition-colors"
+                    className="h-6 w-6 text-[#2C5E53] group-hover:text-white transition-colors"
                     strokeWidth={1.6}
                   />
                 </div>
                 <h3 className="font-jakarta text-lg font-bold text-[#162623] mb-2">
                   {t(f.titleKey)}
                 </h3>
-                <p className="text-sm text-[#5A6E69] leading-relaxed">
+                <p className="text-sm text-[#4A5A55] leading-relaxed">
                   {t(f.descKey)}
                 </p>
               </motion.div>
