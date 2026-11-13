@@ -190,24 +190,6 @@ export function LandingHero() {
           </div>
         </div>
       </div>
-
-      {/* === Sharp white transition section === */}
-      <div className="bg-white py-16 sm:py-20">
-        <div className="mx-auto max-w-2xl px-4 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="font-jakarta text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#162623] tracking-tight"
-          >
-            Everything you need to eat well
-          </motion.h2>
-          <p className="mt-4 text-base sm:text-lg text-[#4A5A55]">
-            Smart tools that make healthy eating simple, personal, and sustainable.
-          </p>
-        </div>
-      </div>
     </section>
   );
 }
