@@ -63,7 +63,7 @@ export function LandingFeatures() {
                     strokeWidth={1.6}
                   />
                 </div>
-                <h3 className="font-jakarta text-xl sm:text-2xl font-extrabold text-[#131C16] mb-3 tracking-tight">
+                <h3 className="font-jakarta text-xl sm:text-2xl font-extrabold italic text-[#131C16] mb-3 tracking-tight">
                   {t(f.titleKey)}
                 </h3>
                 <p className="text-sm sm:text-base text-[#4A5A55] leading-relaxed">
