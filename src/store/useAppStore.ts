@@ -30,7 +30,11 @@ export type View =
   | "signup"
   | "onboarding"
   | "dashboard"
+  | "foodDiary"
   | "scanner"
+  | "shopping"
+  | "mealPlanner"
+  | "analytics"
   | "settings";
 
 export interface User {

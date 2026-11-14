@@ -6,7 +6,11 @@ import { LandingScreen } from "@/components/landing/LandingScreen";
 import { AuthScreen } from "@/components/auth/AuthScreen";
 import { OnboardingScreen } from "@/components/onboarding/OnboardingScreen";
 import { DashboardScreen } from "@/components/dashboard/DashboardScreen";
+import { FoodDiaryScreen } from "@/components/fooddiary/FoodDiaryScreen";
 import { ScannerScreen } from "@/components/scanner/ScannerScreen";
+import { ShoppingScreen } from "@/components/shopping/ShoppingScreen";
+import { MealPlannerScreen } from "@/components/mealplanner/MealPlannerScreen";
+import { AnalyticsScreen } from "@/components/analytics/AnalyticsScreen";
 import { SettingsScreen } from "@/components/settings/SettingsScreen";
 
 export default function Home() {
@@ -27,7 +31,7 @@ export default function Home() {
   // Guard rails: if trying to access protected views without auth, redirect
   useEffect(() => {
     if (!hydrated) return;
-    const protectedViews = ["dashboard", "scanner", "settings", "onboarding"];
+    const protectedViews = ["dashboard", "foodDiary", "scanner", "shopping", "mealPlanner", "analytics", "settings", "onboarding"];
     if (protectedViews.includes(view) && !isAuthed) {
       useAppStore.getState().setView("signin");
     }
@@ -60,8 +64,16 @@ export default function Home() {
       return <OnboardingScreen />;
     case "dashboard":
       return <DashboardScreen />;
+    case "foodDiary":
+      return <FoodDiaryScreen />;
     case "scanner":
       return <ScannerScreen />;
+    case "shopping":
+      return <ShoppingScreen />;
+    case "mealPlanner":
+      return <MealPlannerScreen />;
+    case "analytics":
+      return <AnalyticsScreen />;
     case "settings":
       return <SettingsScreen />;
     default:

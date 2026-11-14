@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { motion } from "framer-motion";
 import {
   Bell,
   Search,
@@ -15,22 +14,15 @@ import {
   Leaf,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DashboardSidebar } from "./DashboardSidebar";
+import { AppShell } from "./AppShell";
+import { Card } from "./Card";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { useToast } from "@/hooks/use-toast";
 import { formatNumber } from "@/lib/nutrition";
 import type { MealType } from "@/lib/sample-data";
 import { cn } from "@/lib/utils";
-
-// Real food photos (sourced via image-search) keyed by the diary's imageQuery.
-const FOOD_PHOTOS: Record<string, string> = {
-  "paratha dal": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/d4459ca5f52f.jpg",
-  banana: "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/73fd0fa4f36a.jpg",
-  "rice fish curry": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/472d689232cd.jpg",
-  "cucumber salad": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b00ef05ebbca.jpg",
-  "mixed nuts": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/05943486772f.jpg",
-};
+import { FOOD_PHOTOS } from "@/lib/food-photos";
 
 export function DashboardScreen() {
   const { t, lang } = useI18n();
@@ -106,29 +98,7 @@ export function DashboardScreen() {
   const userInitial = user?.fullName?.charAt(0).toUpperCase() ?? "U";
 
   return (
-    <div className="min-h-screen lg:h-screen bg-[#E3E5E3] flex flex-col lg:overflow-hidden">
-          {/* Title bar */}
-          <div className="hidden lg:flex items-center gap-3 px-4 h-10 bg-white/75 border-b border-[#DCE4E1] flex-shrink-0 backdrop-blur-sm">
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#E06D53]" />
-              <span className="w-3 h-3 rounded-full bg-[#E8940A]" />
-              <span className="w-3 h-3 rounded-full bg-[#1E4D3B]" />
-            </div>
-            <div className="flex-1 flex justify-center">
-              <div className="px-3 py-0.5 rounded-full bg-[#E3E5E3] text-[10px] font-medium text-[#4A5A55] flex items-center gap-1.5">
-                <Leaf className="w-3 h-3 text-[#1E4D3B]" strokeWidth={2} />
-                nutrilen.ai/dashboard
-              </div>
-            </div>
-            <div className="w-12" />
-          </div>
-
-          {/* Window body: sidebar + main */}
-          <div className="flex flex-col lg:flex-row flex-1 min-h-0">
-            <DashboardSidebar activeView="dashboard" />
-
-            {/* Main content */}
-            <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">
+    <AppShell activeView="dashboard" urlPath="nutrilen.ai/dashboard">
               <div className="p-4 sm:p-6 lg:p-7 max-w-7xl mx-auto">
                 {/* Welcome Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -450,26 +420,7 @@ export function DashboardScreen() {
 
                 <div className="h-6" />
               </div>
-            </main>
-          </div>
-    </div>
-  );
-}
-
-// ===== Helper components =====
-function Card({ className, children }: { className?: string; children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className={cn(
-        "rounded-2xl border border-[#DCE4E1] shadow-[0_2px_12px_rgba(22,38,35,0.05)] hover:shadow-[0_6px_24px_rgba(22,38,35,0.08)] transition-shadow",
-        className
-      )}
-    >
-      {children}
-    </motion.div>
+    </AppShell>
   );
 }
 

@@ -16,6 +16,7 @@ import {
   Mail,
   Calendar,
   Check,
+  Leaf,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -58,9 +59,23 @@ export function SettingsScreen() {
     : "November 2026";
 
   return (
-    <div className="min-h-screen bg-[#9CB0A8]">
-      <div className="lg:p-4">
-        <div className="max-w-[1400px] mx-auto bg-[#E3E5E3] lg:rounded-[32px] lg:overflow-hidden lg:shadow-[0_20px_60px_rgba(22,38,35,0.18)] flex flex-col lg:flex-row lg:h-[calc(100vh-2rem)]">
+    <div className="min-h-screen lg:h-screen bg-[#E3E5E3] flex flex-col lg:overflow-hidden">
+      {/* Title bar */}
+      <div className="hidden lg:flex items-center gap-3 px-4 h-10 bg-white/75 border-b border-[#DCE4E1] flex-shrink-0 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#E06D53]" />
+          <span className="w-3 h-3 rounded-full bg-[#E8940A]" />
+          <span className="w-3 h-3 rounded-full bg-[#1E4D3B]" />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <div className="px-3 py-0.5 rounded-full bg-[#E3E5E3] text-[10px] font-medium text-[#4A5A55] flex items-center gap-1.5">
+            <Leaf className="w-3 h-3 text-[#1E4D3B]" strokeWidth={2} />
+            nutrilen.ai/settings
+          </div>
+        </div>
+        <div className="w-12" />
+      </div>
+      <div className="flex flex-col lg:flex-row flex-1 min-h-0">
           <DashboardSidebar activeView="settings" />
           <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">
             <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto">
@@ -168,7 +183,6 @@ export function SettingsScreen() {
         </div>
       )}
     </div>
-      </div>
     </div>
   );
 }
