@@ -58,10 +58,12 @@ export function SettingsScreen() {
     : "November 2026";
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-background">
-      <DashboardSidebar activeView="settings" />
-      <main className="flex-1 min-w-0">
-        <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto">
+    <div className="min-h-screen bg-[#9CB0A8]">
+      <div className="lg:p-4">
+        <div className="max-w-[1400px] mx-auto bg-[#E3E5E3] lg:rounded-[32px] lg:overflow-hidden lg:shadow-[0_20px_60px_rgba(22,38,35,0.18)] flex flex-col lg:flex-row lg:h-[calc(100vh-2rem)]">
+          <DashboardSidebar activeView="settings" />
+          <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">
+            <div className="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto">
           <div className="mb-6">
             <button
               onClick={() => setView("dashboard")}
@@ -165,6 +167,8 @@ export function SettingsScreen() {
           </div>
         </div>
       )}
+    </div>
+      </div>
     </div>
   );
 }
