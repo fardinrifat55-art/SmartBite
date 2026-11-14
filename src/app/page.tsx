@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 import { LandingScreen } from "@/components/landing/LandingScreen";
 import { AuthScreen } from "@/components/auth/AuthScreen";
@@ -12,6 +13,9 @@ import { ShoppingScreen } from "@/components/shopping/ShoppingScreen";
 import { MealPlannerScreen } from "@/components/mealplanner/MealPlannerScreen";
 import { AnalyticsScreen } from "@/components/analytics/AnalyticsScreen";
 import { SettingsScreen } from "@/components/settings/SettingsScreen";
+
+/** easeOutQuint — soft, weighted deceleration used for screen transitions. */
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export default function Home() {
   const view = useAppStore((s) => s.view);
@@ -54,29 +58,55 @@ export default function Home() {
     );
   }
 
+  let screen: React.ReactNode;
   switch (view) {
     case "landing":
-      return <LandingScreen />;
+      screen = <LandingScreen />;
+      break;
     case "signin":
     case "signup":
-      return <AuthScreen />;
+      screen = <AuthScreen />;
+      break;
     case "onboarding":
-      return <OnboardingScreen />;
+      screen = <OnboardingScreen />;
+      break;
     case "dashboard":
-      return <DashboardScreen />;
+      screen = <DashboardScreen />;
+      break;
     case "foodDiary":
-      return <FoodDiaryScreen />;
+      screen = <FoodDiaryScreen />;
+      break;
     case "scanner":
-      return <ScannerScreen />;
+      screen = <ScannerScreen />;
+      break;
     case "shopping":
-      return <ShoppingScreen />;
+      screen = <ShoppingScreen />;
+      break;
     case "mealPlanner":
-      return <MealPlannerScreen />;
+      screen = <MealPlannerScreen />;
+      break;
     case "analytics":
-      return <AnalyticsScreen />;
+      screen = <AnalyticsScreen />;
+      break;
     case "settings":
-      return <SettingsScreen />;
+      screen = <SettingsScreen />;
+      break;
     default:
-      return <LandingScreen />;
+      screen = <LandingScreen />;
   }
+
+  // Keyed by `view` so each navigation remounts the shell and plays a soft
+  // fade-in (easeOutQuint) instead of a hard cut between screens. No exit
+  // animation — the outgoing screen unmounts instantly and the new one
+  // fades in, which stays snappy and avoids two sidebars crossfading.
+  return (
+    <motion.div
+      key={view}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: EASE }}
+    >
+      {screen}
+    </motion.div>
+  );
 }
