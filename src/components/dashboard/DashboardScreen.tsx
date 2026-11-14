@@ -106,11 +106,8 @@ export function DashboardScreen() {
   const userInitial = user?.fullName?.charAt(0).toUpperCase() ?? "U";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#E6EDE7] via-[#D6DEDA] to-[#C3CCC6]">
-      <div className="lg:p-4">
-        {/* Desktop window mockup */}
-        <div className="max-w-[1400px] mx-auto bg-[#E3E5E3] lg:rounded-[32px] lg:overflow-hidden lg:shadow-[0_24px_70px_rgba(22,38,35,0.22)] flex flex-col lg:h-[calc(100vh-2rem)]">
-          {/* Window title bar */}
+    <div className="min-h-screen lg:h-screen bg-[#E3E5E3] flex flex-col lg:overflow-hidden">
+          {/* Title bar */}
           <div className="hidden lg:flex items-center gap-3 px-4 h-10 bg-white/75 border-b border-[#DCE4E1] flex-shrink-0 backdrop-blur-sm">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-[#E06D53]" />
@@ -455,8 +452,6 @@ export function DashboardScreen() {
               </div>
             </main>
           </div>
-        </div>
-      </div>
     </div>
   );
 }
