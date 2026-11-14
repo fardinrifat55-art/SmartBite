@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import {
-  LayoutDashboard,
+  Home,
   BookOpen,
   ScanLine,
   ShoppingBasket,
@@ -28,7 +28,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { view: "dashboard", labelKey: "sidebar.dashboard", icon: LayoutDashboard },
+  { view: "dashboard", labelKey: "sidebar.dashboard", icon: Home },
   { view: "dashboard", labelKey: "sidebar.foodDiary", icon: BookOpen, comingSoon: true },
   { view: "scanner", labelKey: "sidebar.scanner", icon: ScanLine },
   { view: "scanner", labelKey: "sidebar.shopping", icon: ShoppingBasket, comingSoon: true },
@@ -98,8 +98,8 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-2 py-2 scroll-soft">
-        <div className="space-y-0.5">
+      <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 pl-3 pr-0 scroll-soft">
+        <div className="space-y-1">
           {navItems.map((item, idx) => {
             const Icon = item.icon;
             const isActive = activeView === item.view && (
@@ -112,16 +112,25 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
                 key={`${item.labelKey}-${idx}`}
                 onClick={() => handleNav(item)}
                 className={cn(
-                  "w-full flex items-center gap-2.5 mx-1 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors",
+                  "w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium transition-colors relative",
                   isActive
-                    ? "bg-white/85 text-[#162623] shadow-sm font-bold"
-                    : "text-[#162623]/65 hover:bg-white/10 hover:text-[#162623]"
+                    ? "bg-[#E3E5E3] text-[#162623] font-bold rounded-l-2xl"
+                    : "text-[#162623]/65 hover:bg-white/10 hover:text-[#162623] rounded-xl"
                 )}
               >
-                <Icon className="h-4 w-4 flex-shrink-0" strokeWidth={1.8} />
-                <span className="flex-1 text-left">{t(item.labelKey)}</span>
+                {isActive && (
+                  <>
+                    {/* Tiny orange indicator dot on the far left edge */}
+                    <span className="absolute left-1.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#E8940A] z-20 shadow-[0_0_0_2px_rgba(255,255,255,0.7)]" />
+                    {/* Curved inverted cutout corners — sage notches merging with the main area */}
+                    <span className="absolute -top-2 right-0 w-4 h-4 rounded-full bg-[#9CB0A8]" />
+                    <span className="absolute -bottom-2 right-0 w-4 h-4 rounded-full bg-[#9CB0A8]" />
+                  </>
+                )}
+                <Icon className="h-4 w-4 flex-shrink-0 relative z-10" strokeWidth={1.8} />
+                <span className="flex-1 text-left relative z-10">{t(item.labelKey)}</span>
                 {item.comingSoon && (
-                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#162623]/10 text-[#162623]/50 uppercase tracking-wide">
+                  <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full bg-[#162623]/10 text-[#162623]/50 uppercase tracking-wide relative z-10">
                     Soon
                   </span>
                 )}

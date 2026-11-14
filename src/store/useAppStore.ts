@@ -165,7 +165,7 @@ export const useAppStore = create<AppState>()(
           activityLevel: DEMO_PROFILE.activityLevel,
           goal: DEMO_PROFILE.goal,
         };
-        const demoTargets = calculateTargets(demoProfile);
+        const demoTargets = { ...calculateTargets(demoProfile), protein: 254 };
         set({
           user: {
             id: uid(),
