@@ -197,7 +197,7 @@ export function DashboardScreen() {
           </Card>
 
           {/* Protein Goal — main + Carbs/Fat sub-bars + salmon photo */}
-          <Card delay={0.03} className="bg-[#EDF1EC] border border-[#9CB0A8]/55 p-5 relative overflow-visible">
+          <Card className="bg-[#EDF1EC] border border-[#9CB0A8]/55 p-5 relative overflow-visible">
             <div className="relative">
               <div className="flex items-center gap-1.5 mb-1">
                 <Beef className="h-4 w-4 text-[#1E4D3B]" strokeWidth={2} />
@@ -240,7 +240,7 @@ export function DashboardScreen() {
           </Card>
 
           {/* Day Streak — sage card + Active Streak badge + 7 labeled day circles */}
-          <Card delay={0.06} className="bg-[#A9BDA9] p-5 relative overflow-visible border-none">
+          <Card className="bg-[#A9BDA9] p-5 relative overflow-visible border-none">
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-1.5">
                 <Trophy className="h-4 w-4 text-[#162623]" strokeWidth={2} />
@@ -284,7 +284,7 @@ export function DashboardScreen() {
         {/* === Middle row: Food recap (wide) + Weekly intake === */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
           {/* Today's Food Recap — ticket-notched wide card, 3 rows + footer */}
-          <Card delay={0.09} className="lg:col-span-2 bg-white p-5 relative overflow-visible">
+          <Card className="lg:col-span-2 bg-white p-5 relative overflow-visible">
             <svg className="absolute top-0 right-0 w-32 h-16 pointer-events-none" viewBox="0 0 130 60" fill="none" style={{ opacity: 0.22 }}>
               <path d="M0 25 Q30 8 60 20 T130 16" stroke="#D4A843" strokeWidth="0.7" fill="none" />
               <path d="M0 35 Q30 18 60 30 T130 26" stroke="#D4A843" strokeWidth="0.5" fill="none" />
@@ -343,7 +343,7 @@ export function DashboardScreen() {
           </Card>
 
           {/* Weekly Intake — dual bars + Y-axis 0–3k + gridlines */}
-          <Card delay={0.12} className="bg-white p-5 relative overflow-hidden">
+          <Card className="bg-white p-5 relative overflow-hidden">
             <svg className="absolute top-0 right-0 w-24 h-12 pointer-events-none" viewBox="0 0 100 50" fill="none" style={{ opacity: 0.2 }}>
               <path d="M0 18 Q25 6 50 15 T100 12" stroke="#D4A843" strokeWidth="0.6" fill="none" />
               <path d="M0 26 Q25 14 50 23 T100 20" stroke="#D4A843" strokeWidth="0.45" fill="none" />
@@ -386,7 +386,7 @@ export function DashboardScreen() {
         {/* === Bottom row: Macro Share + Calorie Trend === */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Macro Share — 3-segment donut + right legend */}
-          <Card delay={0.15} className="bg-white p-5 relative">
+          <Card className="bg-white p-5 relative">
             <h3 className="font-jakarta text-base font-extrabold text-[#162623] mb-3">Macro Share</h3>
             <div className="flex items-center gap-4">
               <div className="relative w-28 h-28 flex-shrink-0">
@@ -415,7 +415,7 @@ export function DashboardScreen() {
           </Card>
 
           {/* Calorie Trend — dual-wave area + tooltip + Jan–Jun + Y 0–3k */}
-          <Card delay={0.18} className="lg:col-span-2 bg-white p-5 relative">
+          <Card className="lg:col-span-2 bg-white p-5 relative">
             <div className="flex items-center justify-between mb-2">
               <h3 className="font-jakarta text-base font-extrabold text-[#162623]">Calorie Trend</h3>
               <div className="text-[10px] text-[#4A5A55]">Last 6 months</div>

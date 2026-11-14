@@ -1,40 +1,32 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-/** Shared easing — easeOutQuint. Fast start, very slow settle; the curve
- *  most "premium" UI motion uses, so entrances feel soft and weighted
- *  rather than linear or springy. */
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
 /**
- * Shared dashboard card: rounded, soft shadow, fade-in-up motion.
- * Pass extra classes (bg, padding, overflow) via `className`. `delay`
- * staggers the entrance so a grid of cards cascades instead of all
- * popping in at once.
+ * Shared dashboard card: rounded, soft shadow, smooth hover lift.
+ *
+ * Deliberately has no entrance motion. The watery screen crossfade in
+ * src/app/page.tsx is the sole reveal between screens, so cards appear
+ * with that dissolve instead of fading/sliding in on their own — which
+ * keeps each navigation a single, clean, liquid dissolve rather than a
+ * crossfade with a second stage of cards settling afterwards.
  */
 export function Card({
   className,
   children,
-  delay = 0,
 }: {
   className?: string;
   children: React.ReactNode;
-  delay?: number;
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: EASE, delay }}
+    <div
       className={cn(
         "rounded-2xl border border-[#DCE4E1] shadow-[0_2px_12px_rgba(22,38,35,0.05)] hover:shadow-[0_8px_28px_rgba(22,38,35,0.10)] transition-shadow duration-300 ease-out",
         className
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

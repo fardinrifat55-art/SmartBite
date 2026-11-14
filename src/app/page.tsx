@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "@/store/useAppStore";
 import { LandingScreen } from "@/components/landing/LandingScreen";
 import { AuthScreen } from "@/components/auth/AuthScreen";
@@ -14,8 +14,11 @@ import { MealPlannerScreen } from "@/components/mealplanner/MealPlannerScreen";
 import { AnalyticsScreen } from "@/components/analytics/AnalyticsScreen";
 import { SettingsScreen } from "@/components/settings/SettingsScreen";
 
-/** easeOutQuint — soft, weighted deceleration used for screen transitions. */
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+/** easeInOut — a smooth symmetric curve for the watery crossfade between
+ *  screens. Both the outgoing and incoming sides ease in and out together,
+ *  so the two layers dissolve through each other instead of hitting an
+ *  opaque-to-opaque hard midpoint. */
+const EASE: [number, number, number, number] = [0.65, 0, 0.35, 1];
 
 export default function Home() {
   const view = useAppStore((s) => s.view);
@@ -95,18 +98,23 @@ export default function Home() {
       screen = <LandingScreen />;
   }
 
-  // Keyed by `view` so each navigation remounts the shell and plays a soft
-  // fade-in (easeOutQuint) instead of a hard cut between screens. No exit
-  // animation — the outgoing screen unmounts instantly and the new one
-  // fades in, which stays snappy and avoids two sidebars crossfading.
+  // Watery crossfade between screens. `mode="popLayout"` pops the outgoing
+  // screen out of normal flow (absolute, held at its last position) so the
+  // incoming screen can overlap it, and both animate at once — a smooth
+  // dissolve with a gentle scale, no hard cut and no blank gap in the
+  // middle. `initial={false}` keeps the very first load instant.
   return (
-    <motion.div
-      key={view}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: EASE }}
-    >
-      {screen}
-    </motion.div>
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.div
+        key={view}
+        initial={{ opacity: 0, scale: 0.99 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 1.01 }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="min-h-screen lg:h-screen"
+      >
+        {screen}
+      </motion.div>
+    </AnimatePresence>
   );
 }
