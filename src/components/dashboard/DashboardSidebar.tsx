@@ -18,21 +18,23 @@ import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore, type View } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface NavItem {
   view: View;
   labelKey: string;
   icon: React.ElementType;
+  accent: string;
 }
 
 const navItems: NavItem[] = [
-  { view: "dashboard", labelKey: "sidebar.dashboard", icon: Home },
-  { view: "foodDiary", labelKey: "sidebar.foodDiary", icon: BookOpen },
-  { view: "scanner", labelKey: "sidebar.scanner", icon: ScanLine },
-  { view: "shopping", labelKey: "sidebar.shopping", icon: ShoppingBasket },
-  { view: "mealPlanner", labelKey: "sidebar.mealPlanner", icon: CalendarHeart },
-  { view: "analytics", labelKey: "sidebar.analytics", icon: BarChart3 },
-  { view: "settings", labelKey: "sidebar.profile", icon: Settings },
+  { view: "dashboard", labelKey: "sidebar.dashboard", icon: Home, accent: "#E06D53" },
+  { view: "foodDiary", labelKey: "sidebar.foodDiary", icon: BookOpen, accent: "#F0A830" },
+  { view: "scanner", labelKey: "sidebar.scanner", icon: ScanLine, accent: "#2C9E8F" },
+  { view: "shopping", labelKey: "sidebar.shopping", icon: ShoppingBasket, accent: "#3B7A57" },
+  { view: "mealPlanner", labelKey: "sidebar.mealPlanner", icon: CalendarHeart, accent: "#8E6BB0" },
+  { view: "analytics", labelKey: "sidebar.analytics", icon: BarChart3, accent: "#D45D7E" },
+  { view: "settings", labelKey: "sidebar.profile", icon: Settings, accent: "#5B6B7B" },
 ];
 
 export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: View }) {
@@ -89,9 +91,12 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
         </div>
       </div>
 
-      {/* Nav */}
+      {/* Nav — sliding colored-circle indicator (framer-motion shared layout).
+          The active item shows an accent-colored circle engulfing the icon,
+          joined to a dark rounded bar behind the label; the whole blob slides
+          vertically between items via layoutId. */}
       <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 pl-3 pr-0 scroll-soft">
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {navItems.map((item, idx) => {
             const Icon = item.icon;
             const isActive = activeView === item.view;
@@ -100,23 +105,39 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
                 key={`${item.labelKey}-${idx}`}
                 onClick={() => handleNav(item)}
                 className={cn(
-                  "w-full flex items-center gap-2.5 px-3 py-2.5 text-sm font-medium transition-colors relative",
-                  isActive
-                    ? "bg-[#E3E5E3] text-[#162623] font-bold rounded-l-2xl"
-                    : "text-[#162623]/65 hover:bg-white/10 hover:text-[#162623] rounded-xl"
+                  "relative w-full h-11 flex items-center gap-2.5 px-3 text-sm rounded-xl transition-colors",
+                  isActive ? "" : "text-[#162623]/60 hover:bg-white/10 hover:text-[#162623]"
                 )}
               >
                 {isActive && (
-                  <>
-                    {/* Tiny orange indicator dot on the far left edge */}
-                    <span className="absolute left-1.5 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-[#E8940A] z-20 shadow-[0_0_0_2px_rgba(255,255,255,0.7)]" />
-                    {/* Curved inverted cutout corners — sage notches merging with the main area */}
-                    <span className="absolute -top-2 right-0 w-4 h-4 rounded-full bg-[#9CB0A8]" />
-                    <span className="absolute -bottom-2 right-0 w-4 h-4 rounded-full bg-[#9CB0A8]" />
-                  </>
+                  <motion.div
+                    layoutId="nav-active-blob"
+                    className="absolute inset-0 pointer-events-none"
+                    transition={{ type: "spring", stiffness: 380, damping: 30, mass: 0.9 }}
+                  >
+                    {/* Dark rounded bar behind the label */}
+                    <div className="absolute left-0.5 right-0 top-1/2 -translate-y-1/2 h-9 rounded-l-full rounded-r-2xl bg-[#162623]" />
+                    {/* Accent-colored circle engulfing the icon */}
+                    <div
+                      className="absolute left-0.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: item.accent }}
+                    />
+                  </motion.div>
                 )}
-                <Icon className="h-4 w-4 flex-shrink-0 relative z-10" strokeWidth={1.8} />
-                <span className="flex-1 text-left relative z-10">{t(item.labelKey)}</span>
+                <Icon
+                  className="relative z-10 h-4 w-4 flex-shrink-0"
+                  strokeWidth={1.9}
+                  style={{ color: isActive ? "#FFFFFF" : undefined }}
+                />
+                <span
+                  className={cn(
+                    "relative z-10 flex-1 text-left",
+                    isActive ? "font-bold" : "font-medium"
+                  )}
+                  style={{ color: isActive ? item.accent : undefined }}
+                >
+                  {t(item.labelKey)}
+                </span>
               </button>
             );
           })}
