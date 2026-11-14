@@ -6,6 +6,7 @@ export const FOOD_PHOTOS: Record<string, string> = {
   "rice fish curry": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/472d689232cd.jpg",
   "cucumber salad": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b00ef05ebbca.jpg",
   "mixed nuts": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/05943486772f.jpg",
+  "chira doi banana": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/e2388e8ff5a6.jpg",
   // Extras used by the Meal Planner / Shopping suggestions.
   "chicken rice": "https://images.unsplash.com/photo-1604908554049-29bf08f5d1ab?w=200&h=200&fit=crop",
   "vegetable soup": "https://images.unsplash.com/photo-1547592180-85f173990554?w=200&h=200&fit=crop",

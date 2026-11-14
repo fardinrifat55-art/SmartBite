@@ -182,7 +182,7 @@ export const translations: Record<Lang, Dict> = {
     "dash.streak.title": "Day Streak",
     "dash.streak.days": "Days",
     "dash.streak.weekly": "Weekly Intake",
-    "dash.streak.goalsCompleted": "Goals Completed Today",
+    "dash.streak.goalsCompleted": "Goals Completed",
     "dash.scanner.title": "What's on Your Plate?",
     "dash.scanner.desc": "Scan your meal and discover its nutritional value instantly.",
     "dash.scanner.cta": "Scan My Food",
@@ -210,6 +210,11 @@ export const translations: Record<Lang, Dict> = {
     "sidebar.analytics": "Analytics",
     "sidebar.profile": "Profile & Settings",
     "sidebar.logout": "Logout",
+    "sidebar.dailyDiscipline": "Daily Discipline",
+    "sidebar.languageEN": "EN",
+    "dash.streak.active": "Active Streak",
+    "dash.recap.totalLogged": "Total Logged",
+    "dash.recap.protein": "Protein",
 
     // Scanner
     "scanner.title": "AI Food Scanner",
@@ -463,7 +468,7 @@ export const translations: Record<Lang, Dict> = {
     "dash.streak.title": "দিনের স্ট্রিক",
     "dash.streak.days": "দিন",
     "dash.streak.weekly": "সাপ্তাহিক গ্রহণ",
-    "dash.streak.goalsCompleted": "আজ সম্পন্ন লক্ষ্য",
+    "dash.streak.goalsCompleted": "লক্ষ্য সম্পন্ন",
     "dash.scanner.title": "আপনার প্লেটে কী আছে?",
     "dash.scanner.desc": "আপনার খাবার স্ক্যান করুন এবং তার পুষ্টিগত মান তৎক্ষণাৎ দেখুন।",
     "dash.scanner.cta": "আমার খাবার স্ক্যান করুন",
@@ -491,6 +496,11 @@ export const translations: Record<Lang, Dict> = {
     "sidebar.analytics": "অ্যানালিটিক্স",
     "sidebar.profile": "প্রোফাইল ও সেটিংস",
     "sidebar.logout": "লগআউট",
+    "sidebar.dailyDiscipline": "দৈনিক শৃঙ্খলা",
+    "sidebar.languageEN": "EN",
+    "dash.streak.active": "চলমান ধারা",
+    "dash.recap.totalLogged": "মোট লগকৃত",
+    "dash.recap.protein": "প্রোটিন",
 
     // Scanner
     "scanner.title": "AI ফুড স্ক্যানার",
