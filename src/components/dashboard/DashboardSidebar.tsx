@@ -105,7 +105,7 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
                 key={`${item.labelKey}-${idx}`}
                 onClick={() => handleNav(item)}
                 className={cn(
-                  "relative w-full h-11 flex items-center gap-2.5 px-3 text-sm rounded-xl transition-colors",
+                  "relative w-full h-11 flex items-center gap-2.5 px-3 text-sm rounded-2xl transition-colors",
                   isActive ? "" : "text-[#162623]/60 hover:bg-white/10 hover:text-[#162623]"
                 )}
               >
@@ -113,11 +113,15 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
                   <motion.div
                     layoutId="nav-active-blob"
                     className="absolute inset-0 pointer-events-none"
-                    transition={{ type: "spring", stiffness: 380, damping: 30, mass: 0.9 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 34, mass: 1 }}
                   >
-                    {/* Dark rounded bar behind the label */}
-                    <div className="absolute left-0.5 right-0 top-1/2 -translate-y-1/2 h-9 rounded-l-full rounded-r-2xl bg-[#162623]" />
-                    {/* Accent-colored circle engulfing the icon */}
+                    {/* Dark bar behind the label — SHORTER than the circle (h-7 vs h-9)
+                        and starting at the circle's center, so its top/bottom edges sit
+                        INSIDE the circle. The accent circle (on top) covers the bar's
+                        left half, and the bar emerges smoothly along the circle's right
+                        arc — no harsh corners or dark "ears" at the circle's edges. */}
+                    <div className="absolute left-5 right-0 top-1/2 -translate-y-1/2 h-7 rounded-r-2xl bg-[#162623]" />
+                    {/* Accent-colored circle engulfing the icon (rendered after the bar so it sits on top) */}
                     <div
                       className="absolute left-0.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center"
                       style={{ backgroundColor: item.accent }}
