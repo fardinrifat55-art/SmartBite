@@ -29,7 +29,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
-import { TitleBar } from "@/components/dashboard/TitleBar";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { formatNumber } from "@/lib/nutrition";
@@ -68,8 +67,7 @@ export function ScannerScreen() {
   const [mode, setMode] = useState<ScannerMode>("select");
 
   return (
-    <div className="min-h-screen lg:h-screen bg-[#E3E5E3] flex flex-col lg:overflow-hidden">
-      <TitleBar urlPath="nutrilen.ai/scanner" />
+    <div className="min-h-screen lg:h-screen bg-[#E8ECE8] flex flex-col lg:overflow-hidden">
       <div className="flex flex-col lg:flex-row flex-1 min-h-0">
           <DashboardSidebar activeView="scanner" />
           <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">

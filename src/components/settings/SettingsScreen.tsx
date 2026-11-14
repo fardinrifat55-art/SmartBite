@@ -20,7 +20,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
-import { TitleBar } from "@/components/dashboard/TitleBar";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { useToast } from "@/hooks/use-toast";
@@ -59,8 +58,7 @@ export function SettingsScreen() {
     : "November 2026";
 
   return (
-    <div className="min-h-screen lg:h-screen bg-[#E3E5E3] flex flex-col lg:overflow-hidden">
-      <TitleBar urlPath="nutrilen.ai/settings" />
+    <div className="min-h-screen lg:h-screen bg-[#E8ECE8] flex flex-col lg:overflow-hidden">
       <div className="flex flex-col lg:flex-row flex-1 min-h-0">
           <DashboardSidebar activeView="settings" />
           <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">
