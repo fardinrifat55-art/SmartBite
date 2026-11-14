@@ -123,8 +123,8 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
         </div>
       </nav>
 
-      {/* Footer: logout */}
-      <div className="px-3 pb-4 flex-shrink-0">
+      {/* Footer: logout (mobile drawer only — desktop uses the title-bar Logout box) */}
+      <div className="px-3 pb-4 flex-shrink-0 lg:hidden">
         <button
           onClick={() => setShowLogoutConfirm(true)}
           className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium text-[#162623]/70 hover:bg-[#E06D53]/15 hover:text-[#E06D53] transition-colors"
