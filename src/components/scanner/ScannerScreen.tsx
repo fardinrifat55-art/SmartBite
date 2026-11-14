@@ -24,6 +24,8 @@ import {
   AlertCircle,
   CheckCircle2,
   Info,
+  Gauge,
+  Timer,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
@@ -32,6 +34,8 @@ import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { formatNumber } from "@/lib/nutrition";
 import { cn } from "@/lib/utils";
+import { SAMPLE_FOOD_DIARY } from "@/lib/sample-data";
+import { foodPhoto } from "@/lib/food-photos";
 
 type ScannerMode = "select" | "meal" | "shopping";
 type AnalysisState = "idle" | "analyzing" | "success" | "error";
@@ -92,23 +96,35 @@ export function ScannerScreen() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+                className="space-y-8"
               >
-                <ModeCard
-                  icon={Utensils}
-                  title={t("scanner.mode.meal")}
-                  desc={t("scanner.mode.meal.desc")}
-                  accent="lime"
-                  onClick={() => setMode("meal")}
-                />
-                <ModeCard
-                  icon={ShoppingBasket}
-                  title={t("scanner.mode.shopping")}
-                  desc={t("scanner.mode.shopping.desc")}
-                  accent="cream"
-                  badge={t("scanner.comingSoon")}
-                  onClick={() => setMode("shopping")}
-                />
+                {/* Mode selection */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <ModeCard
+                    icon={Utensils}
+                    title={t("scanner.mode.meal")}
+                    desc={t("scanner.mode.meal.desc")}
+                    accent="lime"
+                    onClick={() => setMode("meal")}
+                  />
+                  <ModeCard
+                    icon={ShoppingBasket}
+                    title={t("scanner.mode.shopping")}
+                    desc={t("scanner.mode.shopping.desc")}
+                    accent="cream"
+                    badge={t("scanner.comingSoon")}
+                    onClick={() => setMode("shopping")}
+                  />
+                </div>
+
+                {/* How it works — 3 steps */}
+                <HowItWorks />
+
+                {/* Example scans showcase — real meals the scanner identifies */}
+                <ExampleScans onTry={() => setMode("meal")} />
+
+                {/* Scanner at a glance — KPI row */}
+                <ScannerStats />
               </motion.div>
             )}
 
@@ -790,5 +806,203 @@ function ShoppingPlaceholder({ onBack }: { onBack: () => void }) {
         {t("common.back")}
       </Button>
     </div>
+  );
+}
+
+// ===== How It Works — 3 steps filling the landing page =====
+function HowItWorks() {
+  const { t } = useI18n();
+  const steps = [
+    { icon: Camera, title: t("scanner.how.step1.title"), desc: t("scanner.how.step1.desc") },
+    { icon: Sparkles, title: t("scanner.how.step2.title"), desc: t("scanner.how.step2.desc") },
+    { icon: BookPlus, title: t("scanner.how.step3.title"), desc: t("scanner.how.step3.desc") },
+  ];
+  return (
+    <section className="bg-white rounded-3xl border border-forest/8 p-6 shadow-sm">
+      <div className="mb-5">
+        <h2 className="font-heading text-lg font-bold text-forest">{t("scanner.how.title")}</h2>
+        <p className="text-xs text-forest/55 mt-0.5">{t("scanner.how.subtitle")}</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {steps.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <div key={i} className="relative rounded-2xl bg-cream/30 border border-forest/8 p-5 overflow-hidden">
+              <span className="absolute top-3 right-4 text-4xl font-bold text-forest/8 tabular-nums leading-none select-none">
+                {i + 1}
+              </span>
+              <div className="w-11 h-11 rounded-xl bg-forest flex items-center justify-center mb-3">
+                <Icon className="h-5 w-5 text-lime" strokeWidth={1.8} />
+              </div>
+              <h3 className="font-heading text-sm font-bold text-forest mb-1">{s.title}</h3>
+              <p className="text-xs text-forest/60 leading-relaxed">{s.desc}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ===== Example Scans — showcase of real meals the scanner identifies =====
+const EXAMPLE_SCANS = SAMPLE_FOOD_DIARY.filter((f) =>
+  ["paratha dal", "rice fish curry", "banana", "cucumber salad"].includes(f.imageQuery)
+).slice(0, 4);
+const SCAN_CONFIDENCES = [96, 94, 92, 90];
+
+function ExampleScans({ onTry }: { onTry: () => void }) {
+  const { t, lang } = useI18n();
+  return (
+    <section>
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h2 className="font-heading text-lg font-bold text-forest">{t("scanner.examples.title")}</h2>
+          <p className="text-xs text-forest/55 mt-0.5">{t("scanner.examples.subtitle")}</p>
+        </div>
+        <Button
+          onClick={onTry}
+          size="sm"
+          className="rounded-full bg-forest text-white hover:bg-forest/90 h-9 text-xs hidden sm:flex"
+        >
+          <Camera className="mr-1.5 h-3.5 w-3.5" />
+          {t("scanner.takePhoto")}
+        </Button>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {EXAMPLE_SCANS.map((food, i) => {
+          const conf = SCAN_CONFIDENCES[i % SCAN_CONFIDENCES.length];
+          const macros = [
+            { label: "P", value: food.protein, cls: "bg-protein/15 text-protein" },
+            { label: "C", value: food.carbs, cls: "bg-carb/15 text-carb" },
+            { label: "F", value: food.fat, cls: "bg-fat/15 text-fat" },
+          ];
+          return (
+            <div
+              key={food.id}
+              className="bg-white rounded-3xl border border-forest/8 overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all"
+            >
+              <div className="relative h-28 bg-forest/5">
+                <img
+                  src={foodPhoto(food.imageQuery)}
+                  alt={food.name}
+                  className="w-full h-full object-cover"
+                />
+                <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[9px] font-bold text-forest">
+                  {conf}% {t("scanner.examples.confidence")}
+                </span>
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-forest/85 text-white text-[9px] font-semibold">
+                  {t("scanner.examples.detected")}
+                </span>
+              </div>
+              <div className="p-4">
+                <h3 className="text-sm font-bold text-forest truncate">
+                  {lang === "bn" ? food.nameBn : food.name}
+                </h3>
+                <div className="mt-1.5 flex items-baseline gap-1">
+                  <span className="text-2xl font-bold text-forest tabular-nums">{food.calories}</span>
+                  <span className="text-[10px] text-forest/45">{t("scanner.examples.kcal")}</span>
+                  <span className="ml-auto text-[9px] text-forest/40">
+                    {food.ingredients.length} {t("scanner.examples.ingredients")}
+                  </span>
+                </div>
+                <div className="mt-2.5 flex items-center gap-1.5">
+                  {macros.map((m) => (
+                    <span
+                      key={m.label}
+                      className={cn("text-[9px] font-bold px-1.5 py-0.5 rounded-full", m.cls)}
+                    >
+                      {m.label} {m.value}g
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={onTry}
+                  className="mt-3 w-full text-[10px] font-semibold text-forest/70 hover:text-forest flex items-center justify-center gap-1 py-1.5 rounded-lg bg-cream/40 hover:bg-cream/70 transition-colors"
+                >
+                  {t("scanner.examples.tryScan")}
+                  <ArrowRight className="h-3 w-3" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ===== Scanner Stats — KPI row matching the dashboard's card language =====
+function ScannerStats() {
+  const { t } = useI18n();
+  const stats = [
+    { icon: Utensils, value: "12,000+", label: t("scanner.stats.foods"), desc: t("scanner.stats.foodsDesc"), variant: "dark" as const },
+    { icon: Timer, value: "3.2s", label: t("scanner.stats.scanTime"), desc: t("scanner.stats.scanTimeDesc"), variant: "cream" as const },
+    { icon: Gauge, value: "94%", label: t("scanner.stats.accuracy"), desc: t("scanner.stats.accuracyDesc"), variant: "sage" as const },
+  ];
+  return (
+    <section>
+      <h2 className="font-heading text-lg font-bold text-forest mb-4">{t("scanner.stats.title")}</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {stats.map((s, i) => {
+          const Icon = s.icon;
+          const isDark = s.variant === "dark";
+          const isSage = s.variant === "sage";
+          return (
+            <div
+              key={i}
+              className={cn(
+                "rounded-3xl p-5 relative overflow-hidden",
+                isDark
+                  ? "bg-gradient-to-br from-forest to-forest/90 text-white"
+                  : isSage
+                    ? "bg-lime-soft/50 border border-lime/20 text-forest"
+                    : "bg-white border border-forest/8 text-forest shadow-sm"
+              )}
+            >
+              {/* faint decorative wave on the dark card */}
+              {isDark && (
+                <svg
+                  className="absolute bottom-0 left-0 w-full pointer-events-none"
+                  viewBox="0 0 200 40"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  style={{ opacity: 0.3 }}
+                >
+                  <path d="M0 24 Q40 10 80 20 T160 14 T200 20" stroke="#A5D52E" strokeWidth="0.7" fill="none" />
+                  <path d="M0 30 Q40 16 80 26 T160 20 T200 26" stroke="#A5D52E" strokeWidth="0.5" fill="none" />
+                </svg>
+              )}
+              <div className="relative">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <Icon
+                    className={cn("h-4 w-4", isDark ? "text-lime" : "text-forest/70")}
+                    strokeWidth={2}
+                  />
+                  <span
+                    className={cn(
+                      "text-[10px] font-bold uppercase tracking-wide",
+                      isDark ? "text-white/75" : "text-forest/60"
+                    )}
+                  >
+                    {s.label}
+                  </span>
+                </div>
+                <div
+                  className={cn(
+                    "text-3xl font-extrabold tabular-nums leading-tight",
+                    isDark ? "text-white" : "text-forest"
+                  )}
+                >
+                  {s.value}
+                </div>
+                <div className={cn("text-[10px] mt-0.5", isDark ? "text-white/55" : "text-forest/45")}>
+                  {s.desc}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
