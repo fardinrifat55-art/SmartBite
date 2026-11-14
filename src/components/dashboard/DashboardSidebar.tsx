@@ -132,7 +132,7 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
       </nav>
 
       {/* Footer: logout */}
-      <div className="px-3 pb-2 flex-shrink-0">
+      <div className="px-3 pb-4 flex-shrink-0">
         <button
           onClick={() => setShowLogoutConfirm(true)}
           className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium text-[#162623]/70 hover:bg-[#E06D53]/15 hover:text-[#E06D53] transition-colors"
@@ -140,57 +140,6 @@ export function DashboardSidebar({ activeView = "dashboard" }: { activeView?: Vi
           <LogOut className="h-4 w-4" strokeWidth={1.8} />
           <span>{t("sidebar.logout")}</span>
         </button>
-      </div>
-
-      {/* Salad bowl illustration at bottom */}
-      <div className="h-28 relative overflow-hidden flex-shrink-0">
-        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 240 110" fill="none" preserveAspectRatio="xMidYMax meet">
-          {/* Fork handle sticking out upper-right */}
-          <g transform="rotate(-35 195 30)">
-            <rect x="193" y="5" width="4" height="40" rx="1.5" fill="#C0C4C8" />
-            <rect x="191" y="3" width="8" height="6" rx="1" fill="#C0C4C8" />
-            <path d="M192 3 L192 9 M195 3 L195 9 M198 3 L198 9" stroke="#A0A4A8" strokeWidth="0.8" />
-          </g>
-          {/* Bowl shadow */}
-          <ellipse cx="120" cy="100" rx="95" ry="6" fill="#162623" opacity="0.12" />
-          {/* Bowl outer (dark charcoal) */}
-          <path d="M30 60 Q30 95 120 100 Q210 95 210 60 L200 58 Q200 88 120 92 Q40 88 40 58 Z" fill="#2A3530" />
-          {/* Bowl body */}
-          <path d="M35 58 Q35 92 120 96 Q205 92 205 58 Q180 62 120 62 Q60 62 35 58 Z" fill="#37433C" />
-          {/* Bowl rim */}
-          <ellipse cx="120" cy="58" rx="88" ry="8" fill="#2A3530" />
-          <ellipse cx="120" cy="57" rx="85" ry="6" fill="#1F2823" />
-          {/* Salad — lettuce leaves */}
-          <path d="M55 54 Q50 40 60 38 Q72 42 68 54 Z" fill="#5A7A4A" />
-          <path d="M65 52 Q62 36 75 34 Q86 40 80 52 Z" fill="#6B8E55" />
-          <path d="M78 50 Q78 32 92 32 Q100 40 94 50 Z" fill="#5A7A4A" />
-          <path d="M95 48 Q98 30 112 32 Q118 40 110 48 Z" fill="#6B8E55" />
-          <path d="M115 47 Q120 29 134 33 Q138 41 130 47 Z" fill="#5A7A4A" />
-          <path d="M135 48 Q142 32 156 36 Q158 44 150 48 Z" fill="#6B8E55" />
-          <path d="M155 49 Q164 35 178 40 Q178 48 170 49 Z" fill="#5A7A4A" />
-          {/* Tomato slices */}
-          <circle cx="72" cy="50" r="4" fill="#C44545" />
-          <circle cx="72" cy="50" r="2.5" fill="#E06D53" />
-          <circle cx="125" cy="46" r="4" fill="#C44545" />
-          <circle cx="125" cy="46" r="2.5" fill="#E06D53" />
-          <circle cx="168" cy="48" r="4" fill="#C44545" />
-          <circle cx="168" cy="48" r="2.5" fill="#E06D53" />
-          {/* Red onion rings */}
-          <circle cx="95" cy="48" r="3.5" fill="none" stroke="#B07A8A" strokeWidth="1.2" />
-          <circle cx="95" cy="48" r="1.5" fill="none" stroke="#C9909A" strokeWidth="0.8" />
-          <circle cx="148" cy="46" r="3.5" fill="none" stroke="#B07A8A" strokeWidth="1.2" />
-          <circle cx="148" cy="46" r="1.5" fill="none" stroke="#C9909A" strokeWidth="0.8" />
-          {/* Cucumber bits */}
-          <ellipse cx="108" cy="50" rx="3" ry="2" fill="#7A9B5A" transform="rotate(20 108 50)" />
-          <ellipse cx="140" cy="49" rx="3" ry="2" fill="#7A9B5A" transform="rotate(-15 140 49)" />
-          {/* Olive */}
-          <ellipse cx="115" cy="52" rx="2" ry="1.5" fill="#3A4A3A" />
-          <ellipse cx="158" cy="51" rx="2" ry="1.5" fill="#3A4A3A" />
-          {/* Feta cubes */}
-          <rect x="100" y="49" width="3" height="3" rx="0.5" fill="#F0E8D8" />
-          <rect x="135" y="48" width="3" height="3" rx="0.5" fill="#F0E8D8" />
-          <rect x="175" y="50" width="3" height="3" rx="0.5" fill="#F0E8D8" />
-        </svg>
       </div>
     </div>
   );
