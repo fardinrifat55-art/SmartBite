@@ -14,12 +14,12 @@ import {
   Flame,
   Camera,
 } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { DEMO_EMAIL, DEMO_PASSWORD } from "@/lib/sample-data";
 
 type AuthMode = "signin" | "signup";
 
@@ -72,7 +72,6 @@ export function AuthScreen() {
   const setView = useAppStore((s) => s.setView);
   const signIn = useAppStore((s) => s.signIn);
   const signUp = useAppStore((s) => s.signUp);
-  const signInDemo = useAppStore((s) => s.signInDemo);
   const { toast } = useToast();
 
   const mode: AuthMode = view === "signup" ? "signup" : "signin";
@@ -108,14 +107,10 @@ export function AuthScreen() {
     try {
       if (mode === "signup") {
         await signUp(name.trim(), email.trim(), password);
-        setView("onboarding");
+        setView("dashboard");
       } else {
-        if (email.trim().toLowerCase() === DEMO_EMAIL && password === DEMO_PASSWORD) {
-          await signInDemo();
-        } else {
-          await signIn(email.trim(), password);
-          setView("onboarding");
-        }
+        await signIn(email.trim(), password);
+        setView("dashboard");
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -127,19 +122,10 @@ export function AuthScreen() {
   const handleGoogle = () => {
     setLoading(true);
     setTimeout(async () => {
-      await signIn("demo@nutrilen.ai", "google");
-      setView("onboarding");
+      await signIn(email.trim() || "user@smartbite.ai", "google");
+      setView("dashboard");
       setLoading(false);
     }, 800);
-  };
-
-  const handleDemo = async () => {
-    setLoading(true);
-    try {
-      await signInDemo();
-    } finally {
-      setLoading(false);
-    }
   };
 
   const switchMode = (m: AuthMode) => {
@@ -158,17 +144,7 @@ export function AuthScreen() {
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">Back to Home</span>
         </button>
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#2C5E53] flex items-center justify-center">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M12 21C7 17 4 13.5 4 9.5C4 6 6.5 4 9.5 4C11 4 12 4.8 12 6C12 4.8 13 4 14.5 4C17.5 4 20 6 20 9.5C20 13.5 17 17 12 21Z" fill="#E3EDE9" />
-              <circle cx="16.5" cy="7.5" r="1.5" fill="#E06D53" />
-            </svg>
-          </div>
-          <span className="font-jakarta text-base font-extrabold tracking-tight text-[#162623]">
-            Nutrilen<span className="text-[#E06D53]"> AI</span>
-          </span>
-        </div>
+        <Logo size="md" />
         <LanguageSwitcher />
       </div>
 
@@ -189,7 +165,7 @@ export function AuthScreen() {
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E3EDE9] text-[#2C5E53] mb-5 w-fit">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 <span className="text-xs font-semibold">
-                  {mode === "signin" ? "Welcome back to Nutrilen AI" : "Join Nutrilen AI"}
+                  {mode === "signin" ? "Welcome back to SmartBite" : "Join SmartBite"}
                 </span>
               </div>
 
@@ -383,41 +359,6 @@ export function AuthScreen() {
                       ? t("auth.createMyAccount")
                       : t("common.signIn")}
                 </button>
-
-                {/* Demo account — sign-in mode only */}
-                {mode === "signin" && (
-                  <div className="mt-2 rounded-xl border border-dashed border-[#2C5E53]/30 bg-[#E3EDE9]/30 p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-[#2C5E53] flex items-center justify-center flex-shrink-0">
-                        <ShieldCheck className="h-4 w-4 text-[#E3EDE9]" strokeWidth={1.8} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-bold text-[#162623]">Demo Account</div>
-                        <div className="text-xs text-[#5A6E69] mt-0.5 leading-relaxed">
-                          Skip onboarding and explore with pre-filled data.
-                        </div>
-                        <div className="mt-2 space-y-1 text-xs">
-                          <div className="flex items-center gap-1.5 text-[#5A6E69]">
-                            <Mail className="h-3 w-3" />
-                            <span className="font-mono">{DEMO_EMAIL}</span>
-                          </div>
-                          <div className="flex items-center gap-1.5 text-[#5A6E69]">
-                            <Lock className="h-3 w-3" />
-                            <span className="font-mono">{DEMO_PASSWORD}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleDemo}
-                      disabled={loading}
-                      className="w-full mt-3 h-10 rounded-lg bg-[#2C5E53] hover:bg-[#2C5E53]/90 text-[#E3EDE9] font-semibold text-sm transition-colors"
-                    >
-                      {loading ? "..." : "Try Demo Account"}
-                    </button>
-                  </div>
-                )}
               </form>
 
               {/* Footer link */}

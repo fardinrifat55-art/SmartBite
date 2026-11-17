@@ -30,3 +30,35 @@ model Post {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model UserFoodPreference {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  allergies           String   @default("[]") // JSON string array: ["shellfish", "nuts"]
+  intolerances        String   @default("[]") // JSON string array: ["lactose"]
+  dietaryRestrictions String   @default("[]") // JSON string array: ["halal"]
+  dislikedFoods       String   @default("[]") // JSON string array: ["bitter gourd"]
+  defaultBudgetMode   String   @default("max")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model SavedGroceryList {
+  id              String   @id @default(cuid())
+  userId          String
+  title           String
+  durationDays    Int      @default(7)
+  budgetMode      String   @default("max") // "max", "cheapest", "none"
+  budgetLimit     Float?
+  actualCost      Float
+  healthGoal      String?
+  compromisesMade String?
+  suggestedBudget Float?
+  dailyCalories   Float
+  dailyProtein    Float
+  dailyCarbs      Float
+  dailyFat        Float
+  rawItemsJson    String   // JSON array of GroceryPlanItem
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

@@ -16,6 +16,7 @@ import {
   ChevronRight,
   Sun,
   TrendingUp,
+  Trash2,
 } from "lucide-react";
 import { AppShell } from "@/components/dashboard/AppShell";
 import { Card } from "@/components/dashboard/Card";
@@ -69,28 +70,30 @@ export function FoodDiaryScreen() {
   const { t, lang } = useI18n();
   const setView = useAppStore((s) => s.setView);
   const targets = useAppStore((s) => s.targets);
+  const foodDiary = useAppStore((s) => s.foodDiary);
+  const removeFood = useAppStore((s) => s.removeFood);
   const user = useAppStore((s) => s.user);
   const { toast } = useToast();
   const [selectedIdx, setSelectedIdx] = useState(6); // last = today
 
-  const dailyCal = targets?.calories ?? 2902;
-  const proteinGoal = targets?.protein ?? 254;
-  const carbGoal = targets?.carbs ?? 350;
-  const fatGoal = targets?.fat ?? 80;
+  const dailyCal = targets?.dailyCalories ?? 2200;
+  const proteinGoal = targets?.protein ?? 140;
+  const carbGoal = targets?.carbs ?? 260;
+  const fatGoal = targets?.fat ?? 70;
 
   const totals = useMemo(
     () =>
-      SAMPLE_FOOD_DIARY.reduce(
+      foodDiary.reduce(
         (a, f) => ({
           cal: a.cal + f.calories,
           p: a.p + f.protein,
           c: a.c + f.carbs,
           fat: a.fat + f.fat,
-          fib: a.fib + f.fiber,
+          fib: a.fib + (f.fiber || 0),
         }),
         { cal: 0, p: 0, c: 0, fat: 0, fib: 0 }
       ),
-    []
+    [foodDiary]
   );
 
   const remainingCal = Math.max(0, dailyCal - totals.cal);
@@ -135,7 +138,7 @@ export function FoodDiaryScreen() {
   }, [totals]);
 
   return (
-    <AppShell activeView="foodDiary" urlPath="nutrilen.ai/food-diary">
+    <AppShell activeView="foodDiary" urlPath="smartbite.ai/food-diary">
       <div className="p-4 sm:p-6 lg:p-7 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
@@ -228,7 +231,7 @@ export function FoodDiaryScreen() {
 
             {/* Meal sections */}
             {MEAL_ORDER.map((mt) => {
-              const items = SAMPLE_FOOD_DIARY.filter((f) => f.mealType === mt);
+              const items = foodDiary.filter((f) => f.mealType === mt);
               const Icon = MEAL_ICON[mt];
               const color = MEAL_COLOR[mt];
               const sectionCal = items.reduce((a, f) => a + f.calories, 0);
@@ -289,13 +292,29 @@ export function FoodDiaryScreen() {
                           <div className="font-jakarta text-base font-extrabold text-[#162623] tabular-nums">{f.calories}</div>
                           <div className="text-[9px] text-[#4A5A55] uppercase tracking-wide">{t("common.kcal")}</div>
                         </div>
-                        <button
-                          onClick={() => toast({ title: lang === "bn" ? f.nameBn : f.name, description: `${f.ingredients.length} ingredients · ${f.calories} kcal` })}
-                          className="w-8 h-8 rounded-full bg-[#F4F7F6] hover:bg-[#E3E5E3] flex items-center justify-center text-[#4A5A55] flex-shrink-0"
-                          aria-label={t("dash.food.viewDetails")}
-                        >
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
+                          <button
+                            onClick={() => {
+                              removeFood(f.id);
+                              toast({
+                                title: lang === "bn" ? "খাবার মুছে ফেলা হয়েছে" : "Meal Deleted",
+                                description: `${lang === "bn" ? f.nameBn : f.name} removed from food diary.`,
+                              });
+                            }}
+                            className="w-8 h-8 rounded-full bg-[#F4F7F6] hover:bg-[#FEE2E2] hover:text-[#DC2626] flex items-center justify-center text-[#4A5A55] transition-colors"
+                            title="Delete meal"
+                            aria-label="Delete meal"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            onClick={() => toast({ title: lang === "bn" ? f.nameBn : f.name, description: `${f.ingredients.length} ingredients · ${f.calories} kcal` })}
+                            className="w-8 h-8 rounded-full bg-[#F4F7F6] hover:bg-[#E3E5E3] flex items-center justify-center text-[#4A5A55]"
+                            aria-label={t("dash.food.viewDetails")}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                        </div>
                       </Card>
                     ))}
                   </div>

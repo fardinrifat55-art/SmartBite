@@ -265,7 +265,7 @@ export const SAMPLE_WEEKLY_ACTIVITY: { day: string; dayBn: string; value: number
 // Default demo user profile for pre-populated dashboard
 export const DEMO_PROFILE = {
   fullName: "Arif Rahman",
-  email: "arif@nutrilen.ai",
+  email: "arif@smartbite.ai",
   gender: "male" as const,
   age: 28,
   height: 175,
@@ -276,7 +276,7 @@ export const DEMO_PROFILE = {
 };
 
 // Demo account credentials (shown on the sign-in page for one-click access)
-export const DEMO_EMAIL = "demo@nutrilen.ai";
+export const DEMO_EMAIL = "demo@smartbite.ai";
 export const DEMO_PASSWORD = "demo1234";
 
 // Generate unique id

@@ -32,11 +32,11 @@ const notoBengali = Noto_Sans_Bengali({
 });
 
 export const metadata: Metadata = {
-  title: "Nutrilen AI — Eat Smarter. Live Healthier. Every Day.",
+  title: "SmartBite — Eat Smarter. Live Healthier. Every Day.",
   description:
     "Your personal AI nutrition companion. Capture meals, track calories, and build healthier habits with intelligent, personalized guidance.",
   keywords: [
-    "Nutrilen AI",
+    "SmartBite",
     "nutrition",
     "calorie tracker",
     "AI food scanner",
@@ -44,15 +44,15 @@ export const metadata: Metadata = {
     "health goals",
     "Bangladesh nutrition",
   ],
-  authors: [{ name: "Nutrilen AI" }],
+  authors: [{ name: "SmartBite" }],
   icons: {
-    icon: "/logo.svg",
+    icon: "/logo.svg?v=3",
   },
   openGraph: {
-    title: "Nutrilen AI — Eat Smarter. Live Healthier. Every Day.",
+    title: "SmartBite — Eat Smarter. Live Healthier. Every Day.",
     description:
       "Your personal AI nutrition companion. Understand your food, track your nutrition, and build healthier habits.",
-    siteName: "Nutrilen AI",
+    siteName: "SmartBite",
     type: "website",
   },
 };
@@ -69,6 +69,22 @@ export default function RootLayout({
       >
         <AppProvider>{children}</AppProvider>
         <Toaster />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function removeHud() {
+                  var b = document.getElementById('nl-badge-frame') || document.getElementById('nl-hud-frame');
+                  if (b) { b.remove(); }
+                }
+                removeHud();
+                if (typeof MutationObserver !== 'undefined') {
+                  new MutationObserver(removeHud).observe(document.documentElement, { childList: true, subtree: true });
+                }
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );

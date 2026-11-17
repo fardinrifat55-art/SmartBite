@@ -60,7 +60,7 @@ export function AnalyticsScreen() {
   const targets = useAppStore((s) => s.targets);
   const [range, setRange] = useState<Range>("month");
 
-  const dailyCal = targets?.calories ?? 2902;
+  const dailyCal = targets?.dailyCalories ?? 2902;
   const proteinGoal = targets?.protein ?? 254;
 
   const n = range === "week" ? 7 : range === "month" ? 30 : 90;
@@ -135,7 +135,7 @@ export function AnalyticsScreen() {
   ];
 
   return (
-    <AppShell activeView="analytics" urlPath="nutrilen.ai/analytics">
+    <AppShell activeView="analytics" urlPath="smartbite.ai/analytics">
       <div className="p-4 sm:p-6 lg:p-7 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">

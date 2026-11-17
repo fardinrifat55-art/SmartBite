@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SmartBite — Prompt Library Answers (Field-by-Field)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+      @bottom-right {
+        content: "Page " counter(page);
+        font-size: 8.5pt;
+        color: #64748b;
+      }
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.4;
+      color: #0f172a;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background: linear-gradient(135deg, #064e3b 0%, #1e4d3b 100%);
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+    }
+    .header h1 {
+      margin: 0 0 4px 0;
+      font-size: 18pt;
+      letter-spacing: -0.5px;
+      color: #a3e635;
+    }
+    .header p {
+      margin: 0;
+      font-size: 9.5pt;
+      opacity: 0.92;
+    }
+    .banner {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 4px solid #16a34a;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 8.5pt;
+      color: #166534;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: 12.5pt;
+      color: #064e3b;
+      border-bottom: 2px solid #a3e635;
+      padding-bottom: 3px;
+      margin-top: 16px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+    .prompt-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 5px solid #1e4d3b;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 6px;
+    }
+    .prompt-num {
+      font-weight: 800;
+      font-size: 11pt;
+      color: #1e4d3b;
+    }
+    .badge-cat {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .field-row {
+      margin-bottom: 8px;
+    }
+    .field-label {
+      font-size: 8pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 2px;
+    }
+    .field-val-input {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      padding: 5px 8px;
+      font-size: 9pt;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .copy-box {
+      background: #0f172a;
+      color: #f1f5f9;
+      padding: 8px 11px;
+      border-radius: 5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 8.2pt;
+      line-height: 1.38;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-top: 2px;
+    }
+    .output-box {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #cbd5e1;
+      border-left: 3px solid #0284c7;
+      padding: 7px 10px;
+      border-radius: 4px;
+      font-size: 8.5pt;
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>SmartBite — Prompt Library Answers</h1>
+    <p>Exact Field-by-Field Values for: <strong>Title</strong>, <strong>Category</strong>, <strong>Prompt Text</strong>, & <strong>Output Summary</strong></p>
+  </div>
+
+  <div class="banner">
+    <strong>How to use in your portal:</strong> Click <strong>"+ Add Prompt"</strong> in your portal, fill in the 4 fields below for each prompt, and click save. Adding these prompts earns you full points in the <strong>Prompt Library</strong> section.
+  </div>
+
+  <!-- PROMPT 1 -->
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Prompt 1: Multimodal Nutrition & Dietary Pivot Analyst</span>
+      <span class="badge-cat">Category: System / Agent</span>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 1: Title (Input Box)</div>
+      <div class="field-val-input">Vision-to-Market Nutrition & Dietary Pivot Analyst</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 2: Category (Dropdown)</div>
+      <div class="field-val-input">Select: <strong>System</strong> (or <strong>Agent</strong> / <strong>Other</strong>)</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 3: Prompt Text (Textarea — Copy exactly)</div>
+      <div class="copy-box">You are SmartBite Nutrition Intelligence AI, an expert clinical nutrition analyst and culinary scientist. You analyze food photos, raw ingredients, or restaurant menus and return a precise, structured nutritional and metabolic report.
+
+Your job:
+1. Determine if the image contains food, drinks, edible ingredients, OR a restaurant menu. If a restaurant menu is detected, extract featured dishes, identify the best metabolic options, and flag ultra-processed traps.
+2. Identify dish(es) and individual ingredients with realistic portion sizes.
+3. Calculate total calories, protein, carbs, fat, fiber, and sugar in grams.
+4. Provide metabolic insights: estimated Glycemic Impact (low/medium/high), NOVA food processing category (1 = unprocessed to 4 = ultra-processed), and 2-4 contextual health observations.
+5. Suggest an actionable Dietary Pivot: an in-restaurant ordering swap and healthier localized Dhaka market staples to prepare at home.
+
+Return ONLY a valid JSON object matching this schema:
+{
+  "mealName": "string",
+  "portionSize": "string",
+  "confidence": number,
+  "totalCalories": number,
+  "protein": number,
+  "carbs": number,
+  "fat": number,
+  "fiber": number,
+  "sugar": number,
+  "isMenu": boolean,
+  "glycemicImpact": "low" | "medium" | "high",
+  "novaGroup": number,
+  "ingredients": [{"name": "string", "quantity": "string", "calories": number}],
+  "insights": ["string"],
+  "dietaryPivot": {
+    "orderSwap": "string",
+    "marketStaples": ["string"]
+  }
+}</div>
+    </div>
+
+    <div class="field-row" style="margin-bottom:0;">
+      <div class="field-label">Field 4: Output Summary (Textarea — Copy exactly)</div>
+      <div class="output-box">Produces deterministic JSON containing complete macronutrients, postprandial glycemic surge estimates, NOVA ultra-processed food flags, and actionable in-restaurant dining swaps that seed the localized Dhaka shopping cart.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT 2 -->
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Prompt 2: Dhaka Benchmark Grocery Planner</span>
+      <span class="badge-cat">Category: Agent / Data</span>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 1: Title (Input Box)</div>
+      <div class="field-val-input">Dhaka Benchmark Constraint-Based Grocery Planner</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 2: Category (Dropdown)</div>
+      <div class="field-val-input">Select: <strong>Agent</strong> (or <strong>Data</strong> / <strong>Other</strong>)</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 3: Prompt Text (Textarea — Copy exactly)</div>
+      <div class="copy-box">Generate a culturally-adapted, budget-optimized grocery shopping list for Dhaka, Bangladesh.
+Input context: User metabolic targets (calories, protein, carbs, fat), duration in days, budget cap in BDT, food inspirations from visual scan, and allergen blacklists.
+
+Rules:
+1. Direct Visual Mapping: Match user visual inspirations directly into authentic local staples (Lal Chaal, Sonali Chicken, Rui, Palong Shak, Deshi Dal).
+2. Hard Allergen Filter: Strictly exclude items matching user allergies (peanuts, shellfish, dairy/lactose, gluten).
+3. Satiety Optimization: Prioritize bioavailable protein (1.6-2.2g/kg) and soluble fiber.
+4. Budget Substitutions: If total exceeds budgetLimitBdt, substitute premium items with cost-effective alternatives (e.g. Rui -> Tilapia, Sonali -> Farm Eggs) while preserving macronutrient targets.</div>
+    </div>
+
+    <div class="field-row" style="margin-bottom:0;">
+      <div class="field-label">Field 4: Output Summary (Textarea — Copy exactly)</div>
+      <div class="output-box">Generates a 7-day or custom-duration localized grocery basket in BDT with pack sizing, refuse yield calculations (raw-to-edible portion), itemized unit prices, and constraint-based budget substitutions.</div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- PROMPT 3 -->
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Prompt 3: Clinical RAG Guideline Retrieval</span>
+      <span class="badge-cat">Category: Evaluation / System</span>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 1: Title (Input Box)</div>
+      <div class="field-val-input">Clinical RAG South Asian Metabolic Guideline Retrieval</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 2: Category (Dropdown)</div>
+      <div class="field-val-input">Select: <strong>Evaluation</strong> (or <strong>System</strong> / <strong>Other</strong>)</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 3: Prompt Text (Textarea — Copy exactly)</div>
+      <div class="copy-box">Given a detected food dish and user metabolic conditions (prediabetes, hypertension, renal constraints, or athletic hypertrophy), retrieve and synthesize applicable evidence from BIRDEM diabetic protocols, ICMR South Asian RDAs, and Open Food Facts.
+
+Format the response into:
+1. Glycemic and insulinemic risk analysis (identifying simple refined carbs vs complex fiber matrices).
+2. Micronutrient density assessment (sodium-to-potassium balance, bioavailable iron).
+3. Recommended clinical dietary modifications and local seasonal crop synergy.</div>
+    </div>
+
+    <div class="field-row" style="margin-bottom:0;">
+      <div class="field-label">Field 4: Output Summary (Textarea — Copy exactly)</div>
+      <div class="output-box">Retrieves and structures evidence-based medical citations from BIRDEM and ICMR, generating scientific justifications and anti-inflammatory food combinations for the user's dashboard.</div>
+    </div>
+  </div>
+
+  <!-- PROMPT 4 -->
+  <div class="prompt-card">
+    <div class="prompt-header">
+      <span class="prompt-num">Prompt 4: Restaurant Menu UPF & Hidden Additives Scanner</span>
+      <span class="badge-cat">Category: Prompting / Agent</span>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 1: Title (Input Box)</div>
+      <div class="field-val-input">Restaurant Menu UPF & Hidden Additives Detector</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 2: Category (Dropdown)</div>
+      <div class="field-val-input">Select: <strong>Prompting</strong> (or <strong>Agent</strong> / <strong>Other</strong>)</div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-label">Field 3: Prompt Text (Textarea — Copy exactly)</div>
+      <div class="copy-box">Examine this restaurant menu or food label photograph.
+1. Extract all dish names and ingredient listings.
+2. Flag potential ultra-processed additives: commercial thickeners (maltodextrin, carboxymethylcellulose), reheated polyunsaturated seed oils, artificial colorants, and sodium surpluses.
+3. Identify the #1 highest nutrient-density dish on the menu.
+4. Formulate specific dining customization requests (e.g. sauce on side, swap white rice for whole wheat roti, double raw salad).</div>
+    </div>
+
+    <div class="field-row" style="margin-bottom:0;">
+      <div class="field-label">Field 4: Output Summary (Textarea — Copy exactly)</div>
+      <div class="output-box">Extracts menu items, classifies dishes according to the NOVA food processing framework, and outputs practical ordering customizations to avoid glycemic spikes and inflammatory additives when dining out.</div>
+    </div>
+  </div>
+
+  <div style="background:#f1f5f9; padding:10px 14px; border-radius:6px; font-size:8.5pt; color:#475569;">
+    <strong>Tip on the Toggle:</strong> <em>"Mark as proprietary (hidden from other teams)"</em> &mdash; you can leave this <strong>unchecked (Off)</strong> so judges and evaluators can view your prompts for maximum transparency points.
+  </div>
+
+</body>
+</html>

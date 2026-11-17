@@ -102,6 +102,13 @@ export interface AppState {
   getConsumedCarbs: () => number;
   getConsumedFat: () => number;
 
+  // Vision-to-Market Staging
+  stagedVisionItems: string[] | null;
+  stagedDietaryPivot: any | null;
+  setStagedVisionItems: (items: string[]) => void;
+  setStagedDietaryPivot: (pivot: any) => void;
+  clearStagedVision: () => void;
+
   // Theme
   theme: "light" | "dark";
   setTheme: (t: "light" | "dark") => void;
@@ -137,6 +144,16 @@ export const useAppStore = create<AppState>()(
           .split(" ")
           .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
           .join(" ");
+        const profile = get().onboardingProfile ?? {
+          gender: DEMO_PROFILE.gender,
+          age: DEMO_PROFILE.age,
+          height: DEMO_PROFILE.height,
+          currentWeight: DEMO_PROFILE.currentWeight,
+          goalWeight: DEMO_PROFILE.goalWeight,
+          activityLevel: DEMO_PROFILE.activityLevel,
+          goal: DEMO_PROFILE.goal,
+        };
+        const targets = get().targets ?? calculateTargets(profile);
         set({
           user: {
             id: uid(),
@@ -145,9 +162,22 @@ export const useAppStore = create<AppState>()(
             createdAt: new Date().toISOString(),
           },
           isAuthed: true,
+          onboardingProfile: profile,
+          targets,
+          view: "dashboard",
         });
       },
       signUp: async (name, email) => {
+        const profile = get().onboardingProfile ?? {
+          gender: DEMO_PROFILE.gender,
+          age: DEMO_PROFILE.age,
+          height: DEMO_PROFILE.height,
+          currentWeight: DEMO_PROFILE.currentWeight,
+          goalWeight: DEMO_PROFILE.goalWeight,
+          activityLevel: DEMO_PROFILE.activityLevel,
+          goal: DEMO_PROFILE.goal,
+        };
+        const targets = get().targets ?? calculateTargets(profile);
         set({
           user: {
             id: uid(),
@@ -156,6 +186,9 @@ export const useAppStore = create<AppState>()(
             createdAt: new Date().toISOString(),
           },
           isAuthed: true,
+          onboardingProfile: profile,
+          targets,
+          view: "dashboard",
         });
       },
       signInDemo: async () => {
@@ -210,7 +243,7 @@ export const useAppStore = create<AppState>()(
         set((s) => ({
           onboardingProfile: {
             ...(s.onboardingProfile ?? {
-              gender: "prefer_not_to_say",
+              gender: "male",
               age: 25,
               height: 170,
               currentWeight: 70,
@@ -281,12 +314,19 @@ export const useAppStore = create<AppState>()(
         get().foodDiary.reduce((sum, f) => sum + f.carbs, 0),
       getConsumedFat: () => get().foodDiary.reduce((sum, f) => sum + f.fat, 0),
 
+      // Vision-to-Market Staging
+      stagedVisionItems: null,
+      stagedDietaryPivot: null,
+      setStagedVisionItems: (items) => set({ stagedVisionItems: items }),
+      setStagedDietaryPivot: (pivot) => set({ stagedDietaryPivot: pivot }),
+      clearStagedVision: () => set({ stagedVisionItems: null, stagedDietaryPivot: null }),
+
       // Theme
       theme: "light",
       setTheme: (t) => set({ theme: t }),
     }),
     {
-      name: "nutrilen-ai-store",
+      name: "smartbite-store",
       partialize: (state) => ({
         lang: state.lang,
         user: state.user,

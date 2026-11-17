@@ -14,16 +14,15 @@ import {
   Beef,
   Trophy,
 } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 
 export function DashboardPreview() {
   const navItems = [
     { label: "Dashboard", icon: LayoutDashboard, active: true },
-    { label: "Food Diary", icon: BookOpen },
     { label: "AI Scanner", icon: ScanLine },
     { label: "Smart Shopping", icon: ShoppingBasket },
-    { label: "Meal Planner", icon: CalendarHeart },
     { label: "Analytics", icon: BarChart3 },
-    { label: "Profile & Settings", icon: Settings },
+    { label: "Settings", icon: Settings },
   ];
 
   const meals = [
@@ -82,7 +81,7 @@ export function DashboardPreview() {
             <div className="w-3 h-3 rounded-full bg-[#9CB0A8]" />
             <div className="w-3 h-3 rounded-full bg-white/30" />
             <div className="flex-1 text-center text-xs font-medium text-white/40">
-              Nutrilen AI — Dashboard
+              SmartBite — Dashboard
             </div>
           </div>
 
@@ -94,15 +93,7 @@ export function DashboardPreview() {
               <div className="m-3 bg-[#AEC0B6] rounded-2xl p-4">
                 {/* Logo */}
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-7 h-7 rounded-full bg-[#162623] flex items-center justify-center flex-shrink-0">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 20.5C8.5 17.5 6 14.5 6 11.5C6 9 7.8 7.5 10 7.5C11.1 7.5 12 8.2 12 9C12 8.2 12.9 7.5 14 7.5C16.2 7.5 18 9 18 11.5C18 14.5 15.5 17.5 12 20.5Z" fill="#FFFFFF" />
-                      <path d="M9.5 11C9.5 10.3 10 9.8 10.5 9.8" stroke="#E06D53" strokeWidth="1" strokeLinecap="round" fill="none" />
-                    </svg>
-                  </div>
-                  <span className="font-jakarta text-sm font-extrabold tracking-tight text-[#162623]">
-                    Nutrilen<span className="text-[#E06D53]"> AI</span>
-                  </span>
+                  <Logo size="sm" />
                 </div>
                 {/* Profile photo */}
                 <div className="flex flex-col items-center">
@@ -114,7 +105,7 @@ export function DashboardPreview() {
                     />
                   </div>
                   <div className="text-[11px] font-bold text-[#162623] tracking-wide mt-2">ARIF RAHMAN</div>
-                  <div className="text-[9px] text-[#162623]/60">demo@nutrilen.ai</div>
+                  <div className="text-[9px] text-[#162623]/60">arif@smartbite.ai</div>
                 </div>
               </div>
 

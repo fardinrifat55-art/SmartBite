@@ -8,9 +8,9 @@ import { AuthScreen } from "@/components/auth/AuthScreen";
 import { OnboardingScreen } from "@/components/onboarding/OnboardingScreen";
 import { DashboardScreen } from "@/components/dashboard/DashboardScreen";
 import { FoodDiaryScreen } from "@/components/fooddiary/FoodDiaryScreen";
+import { MealPlannerScreen } from "@/components/mealplanner/MealPlannerScreen";
 import { ScannerScreen } from "@/components/scanner/ScannerScreen";
 import { ShoppingScreen } from "@/components/shopping/ShoppingScreen";
-import { MealPlannerScreen } from "@/components/mealplanner/MealPlannerScreen";
 import { AnalyticsScreen } from "@/components/analytics/AnalyticsScreen";
 import { SettingsScreen } from "@/components/settings/SettingsScreen";
 
@@ -79,14 +79,14 @@ export default function Home() {
     case "foodDiary":
       screen = <FoodDiaryScreen />;
       break;
+    case "mealPlanner":
+      screen = <MealPlannerScreen />;
+      break;
     case "scanner":
       screen = <ScannerScreen />;
       break;
     case "shopping":
       screen = <ShoppingScreen />;
-      break;
-    case "mealPlanner":
-      screen = <MealPlannerScreen />;
       break;
     case "analytics":
       screen = <AnalyticsScreen />;

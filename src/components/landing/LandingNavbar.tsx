@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Menu, X, Globe } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import { cn } from "@/lib/utils";
@@ -40,28 +41,9 @@ export function LandingNavbar() {
           <button
             onClick={() => handleNavClick("#home")}
             className="flex items-center gap-2.5 flex-shrink-0"
-            aria-label="Nutrilen AI home"
+            aria-label="SmartBite home"
           >
-            {/* 42px circular dark eucalyptus badge with white heart */}
-            <div className="w-[42px] h-[42px] rounded-full bg-[#2C5E53] flex items-center justify-center shadow-sm flex-shrink-0">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 20.5C8.5 17.5 6 14.5 6 11.5C6 9 7.8 7.5 10 7.5C11.1 7.5 12 8.2 12 9C12 8.2 12.9 7.5 14 7.5C16.2 7.5 18 9 18 11.5C18 14.5 15.5 17.5 12 20.5Z"
-                  fill="#FFFFFF"
-                />
-                <path
-                  d="M9 11.5C9 10.7 9.7 10 10.5 10"
-                  stroke="#E06D53"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            {/* 20px bold brand text */}
-            <span className="font-jakarta text-xl font-extrabold tracking-tight text-[#162623] whitespace-nowrap">
-              Nutrilen<span className="text-[#E06D53]"> AI</span>
-            </span>
+            <Logo size="md" />
           </button>
 
           {/* === Center: Navigation links (16px medium) === */}

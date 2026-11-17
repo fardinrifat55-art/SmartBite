@@ -58,7 +58,7 @@ export function SettingsScreen() {
     : "November 2026";
 
   return (
-    <div className="min-h-screen lg:h-screen bg-[#E8ECE8] flex flex-col lg:overflow-hidden">
+    <div className="min-h-screen lg:h-screen bg-[#EEF3F1] flex flex-col lg:overflow-hidden">
       <div className="flex flex-col lg:flex-row flex-1 min-h-0">
           <DashboardSidebar activeView="settings" />
           <main className="flex-1 min-w-0 lg:overflow-y-auto scroll-soft">
@@ -182,6 +182,7 @@ function SectionHeader({ title, subtitle }: { title: string; subtitle?: string }
 
 function ProfileSection({ user, memberSince, targets }: any) {
   const { t } = useI18n();
+  const { toast } = useToast();
   return (
     <div>
       <SectionHeader title={t("settings.profile")} />
@@ -239,7 +240,7 @@ function PersonalSection({ profile }: any) {
     );
   }
   const rows = [
-    { label: t("on.step1.question"), value: profile.gender === "male" ? t("on.step1.male") : profile.gender === "female" ? t("on.step1.female") : t("on.step1.preferNotSay") },
+    { label: t("on.step1.question"), value: profile.gender === "female" ? t("on.step1.female") : t("on.step1.male") },
     { label: t("on.step2.heading"), value: `${profile.age} years` },
     { label: t("on.step3.heading"), value: `${profile.height} cm` },
     { label: t("on.step4.heading"), value: `${profile.currentWeight} kg` },
@@ -454,7 +455,7 @@ function PrivacySection() {
           </button>
         ))}
       </div>
-      <button onClick={() => toast({ title: "Delete account", description: "This action cannot be undone. Contact hello@nutrilen.ai to request account deletion.", variant: "destructive" })} className="w-full p-3 rounded-xl border-2 border-fat/20 text-fat hover:bg-fat/5 text-sm font-medium">
+      <button onClick={() => toast({ title: "Delete account", description: "This action cannot be undone. Contact hello@smartbite.ai to request account deletion.", variant: "destructive" })} className="w-full p-3 rounded-xl border-2 border-fat/20 text-fat hover:bg-fat/5 text-sm font-medium">
         Delete account
       </button>
     </div>

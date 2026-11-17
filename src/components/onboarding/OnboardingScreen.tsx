@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
+import { AppShell } from "@/components/dashboard/AppShell";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
 import type { Gender, ActivityLevel, GoalType } from "@/lib/nutrition";
@@ -78,39 +79,37 @@ export function OnboardingScreen() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-cream/40 via-background to-background">
-      {/* Top bar */}
-      <div className="flex items-center justify-between p-5 sm:p-6">
-        <button
-          onClick={() => (step === 0 ? setView("landing") : prevStep())}
-          className="flex items-center gap-1.5 text-sm font-medium text-forest/70 hover:text-forest transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>{t("common.back")}</span>
-        </button>
-        <div className="lg:hidden">
-          <Logo size="sm" />
+    <AppShell activeView="onboarding">
+      <div className="p-4 sm:p-6 lg:p-8 pb-28 sm:pb-8 max-w-3xl mx-auto flex flex-col min-h-full">
+        {/* Top bar with back to dashboard */}
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => (step === 0 ? setView("dashboard") : prevStep())}
+            className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#162623]/70 hover:text-[#162623] px-3 py-1.5 rounded-full hover:bg-white/60 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>{step === 0 ? (lang === "bn" ? "ড্যাশবোর্ড" : "Dashboard") : t("common.back")}</span>
+          </button>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#2C5E53] bg-[#D1E2DE] px-3 py-1 rounded-full border border-[#CBDCD7]">
+              {lang === "bn" ? "ব্যক্তিগতকরণ" : "Personalization"}
+            </span>
+          </div>
         </div>
-        <div className="hidden lg:block">
-          <Logo size="sm" />
-        </div>
-        <LanguageSwitcher />
-      </div>
 
-      {/* Progress indicator */}
-      <div className="px-5 sm:px-6 mb-2">
-        <div className="mx-auto max-w-2xl">
+        {/* Progress indicator */}
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-forest/8 shadow-sm mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-forest/60">
+            <span className="text-xs font-bold text-forest uppercase tracking-wider">
               {t("on.progress", { current: Math.min(step + 1, TOTAL_STEPS), total: TOTAL_STEPS })}
             </span>
-            <span className="text-xs font-semibold text-forest">
+            <span className="text-xs font-bold text-[#E06D53]">
               {Math.round(progressPct)}%
             </span>
           </div>
           <div className="h-2 bg-forest/10 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-lime to-protein rounded-full"
+              className="h-full bg-gradient-to-r from-[#2C5E53] via-[#E06D53] to-[#2C5E53] rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${progressPct}%` }}
               transition={{ duration: 0.4 }}
@@ -124,69 +123,67 @@ export function OnboardingScreen() {
                 onClick={() => i < step && useAppStore.getState().setOnboardingStep(i)}
                 disabled={i >= step}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all",
-                  i < step && "bg-lime cursor-pointer",
-                  i === step && "bg-forest w-6",
+                  "w-2.5 h-2.5 rounded-full transition-all",
+                  i < step && "bg-[#2C5E53] cursor-pointer",
+                  i === step && "bg-[#E06D53] w-6",
                   i > step && "bg-forest/15"
                 )}
               />
             ))}
           </div>
         </div>
-      </div>
 
-      {/* Main content */}
-      <div className="flex-1 flex items-start justify-center px-5 sm:px-6 py-6">
-        <div className="w-full max-w-2xl">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isFinal ? (
-                <FinalSummary
-                  targets={targets}
-                  profile={profile}
-                  onFinish={handleFinish}
-                />
-              ) : (
-                <StepContent
-                  step={step}
-                  profile={profile}
-                  updateProfile={updateProfile}
-                />
-              )}
-            </motion.div>
-          </AnimatePresence>
+        {/* Main content */}
+        <div className="flex-1 flex items-start justify-center py-2">
+          <div className="w-full">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25 }}
+              >
+                {isFinal ? (
+                  <FinalSummary
+                    targets={targets}
+                    profile={profile}
+                    onFinish={handleFinish}
+                  />
+                ) : (
+                  <StepContent
+                    step={step}
+                    profile={profile}
+                    updateProfile={updateProfile}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
 
-      {/* Footer actions */}
-      {!isFinal && (
-        <div className="px-5 sm:px-6 py-5 border-t border-forest/8 bg-white/40 backdrop-blur-sm">
-          <div className="mx-auto max-w-2xl flex items-center justify-between gap-3">
+        {/* Footer actions */}
+        {!isFinal && (
+          <div className="pt-5 pb-24 sm:pb-6 mt-6 border-t border-forest/8 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <Button
-              variant="ghost"
-              onClick={() => step === 0 ? setView("landing") : prevStep()}
-              className="rounded-full text-forest/70 hover:bg-lime-soft/30"
+              variant="outline"
+              onClick={() => (step === 0 ? setView("dashboard") : prevStep())}
+              className="rounded-full text-forest/70 hover:bg-white order-2 sm:order-1 h-12"
             >
               {t("common.back")}
             </Button>
             <Button
               onClick={handleNext}
               disabled={!canProceed()}
-              className="rounded-full bg-forest text-white font-semibold px-7 h-12 hover:bg-forest/90 shadow-lg shadow-forest/15 disabled:opacity-40 transition-all"
+              className="rounded-full bg-[#162623] hover:bg-[#2C5E53] text-white font-semibold px-8 h-12 shadow-md disabled:opacity-40 transition-all order-1 sm:order-2"
             >
               {t("common.continue")}
               <ArrowRight className="ml-1.5 h-4 w-4" />
             </Button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </AppShell>
   );
 }
 
@@ -293,7 +290,6 @@ function StepGender({ profile, updateProfile }: any) {
   const options: { value: Gender; label: string; icon: any }[] = [
     { value: "male", label: t("on.step1.male"), icon: UserIcon },
     { value: "female", label: t("on.step1.female"), icon: UserIcon },
-    { value: "prefer_not_to_say", label: t("on.step1.preferNotSay"), icon: UserIcon },
   ];
   return (
     <StepShell heading={t("on.step1.heading")} question={t("on.step1.question")}>

@@ -113,6 +113,7 @@ function dayTotal(plan: DayPlan) {
 export function MealPlannerScreen() {
   const { t, lang } = useI18n();
   const setView = useAppStore((s) => s.setView);
+  const targets = useAppStore((s) => s.targets);
   const { toast } = useToast();
   const today = useMemo(() => new Date(), []);
   const week = useMemo(() => buildWeek(today), [today]);
@@ -122,14 +123,14 @@ export function MealPlannerScreen() {
 
   const sel = week[selected];
   const selTot = dayTotal(sel.plan);
-  const dailyCal = 2902;
+  const dailyCal = targets?.dailyCalories ?? 2200;
 
   // weekly calories for the bar chart
   const weekCals = week.map((d) => dayTotal(d.plan).cal);
   const maxCal = Math.max(...weekCals, dailyCal);
 
   return (
-    <AppShell activeView="mealPlanner" urlPath="nutrilen.ai/meal-planner">
+    <AppShell activeView="mealPlanner" urlPath="smartbite.ai/meal-planner">
       <div className="p-4 sm:p-6 lg:p-7 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">

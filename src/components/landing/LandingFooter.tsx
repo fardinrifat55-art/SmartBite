@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { Logo } from "@/components/shared/Logo";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAppStore } from "@/store/useAppStore";
 import { useI18n } from "@/components/providers/AppProvider";
@@ -35,17 +36,7 @@ export function LandingFooter() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-[#2C5E53] flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 20.5C8.5 17.5 6 14.5 6 11.5C6 9 7.8 7.5 10 7.5C11.1 7.5 12 8.2 12 9C12 8.2 12.9 7.5 14 7.5C16.2 7.5 18 9 18 11.5C18 14.5 15.5 17.5 12 20.5Z" fill="#FFFFFF" />
-                  <path d="M9 11.5C9 10.7 9.7 10 10.5 10" stroke="#E06D53" strokeWidth="1.2" strokeLinecap="round" fill="none" />
-                </svg>
-              </div>
-              <span className="font-jakarta text-lg font-extrabold tracking-tight text-white">
-                Nutrilen<span className="text-[#E06D53]"> AI</span>
-              </span>
-            </div>
+            <Logo variant="light" size="md" />
             <p className="mt-4 text-sm text-[#A0B4AC]/60 leading-relaxed max-w-xs">
               {t("footer.description")}
             </p>
@@ -100,7 +91,7 @@ export function LandingFooter() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-[#A0B4AC]/60">
                 <Mail className="h-4 w-4 mt-0.5 text-[#E06D53] flex-shrink-0" />
-                <span>hello@nutrilen.ai</span>
+                <span>hello@smartbite.ai</span>
               </li>
               <li className="flex items-start gap-2.5 text-sm text-[#A0B4AC]/60">
                 <Phone className="h-4 w-4 mt-0.5 text-[#E06D53] flex-shrink-0" />
@@ -117,17 +108,17 @@ export function LandingFooter() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-[#A0B4AC]/40">
-            © {new Date().getFullYear()} Nutrilen AI. {t("footer.rights")}
+            © {new Date().getFullYear()} SmartBite. {t("footer.rights")}
           </div>
           <div className="flex items-center gap-5">
             <button
-              onClick={() => toast({ title: t("footer.privacy"), description: "This page is being prepared. Contact hello@nutrilen.ai for privacy questions." })}
+              onClick={() => toast({ title: t("footer.privacy"), description: "This page is being prepared. Contact hello@smartbite.ai for privacy questions." })}
               className="text-xs text-[#A0B4AC]/40 hover:text-white transition-colors"
             >
               {t("footer.privacy")}
             </button>
             <button
-              onClick={() => toast({ title: t("footer.terms"), description: "This page is being prepared. Contact hello@nutrilen.ai for terms questions." })}
+              onClick={() => toast({ title: t("footer.terms"), description: "This page is being prepared. Contact hello@smartbite.ai for terms questions." })}
               className="text-xs text-[#A0B4AC]/40 hover:text-white transition-colors"
             >
               {t("footer.terms")}
