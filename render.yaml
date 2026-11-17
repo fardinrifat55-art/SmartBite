@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: smartbite
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: "file:./db/custom.db"
+      - key: GEMINI_MODEL
+        value: "gemini-flash-lite-latest"
+      - key: GEMINI_API_KEY
+        sync: false
