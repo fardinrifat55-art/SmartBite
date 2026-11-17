@@ -772,10 +772,24 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // If all remote services fail, perform intelligent local heuristic analysis
+    // If all remote services fail, check if API keys are missing
     if (!rawContent && !visualCaption) {
-      const directResult = await buildLocalHeuristicMealResult(jpegBuffer);
-      return NextResponse.json({ success: true, result: directResult });
+      if (!geminiKey && !groqKey && !openRouterKey) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "GEMINI_API_KEY is not configured on the server. Please add GEMINI_API_KEY in your hosting dashboard's Environment Variables.",
+          },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Could not analyze meal image. Please try uploading a clearer photo.",
+        },
+        { status: 422 }
+      );
     }
 
     const parsed = parseMealJson(rawContent);
@@ -784,8 +798,10 @@ export async function POST(req: NextRequest) {
         const directResult = buildNutritionFromCaption(visualCaption);
         return NextResponse.json({ success: true, result: directResult });
       }
-      const directResult = await buildLocalHeuristicMealResult(jpegBuffer);
-      return NextResponse.json({ success: true, result: directResult });
+      return NextResponse.json(
+        { success: false, error: "Could not parse meal nutrition response. Please try again." },
+        { status: 500 }
+      );
     }
 
     const sanitize = (v: unknown, fb: number) =>

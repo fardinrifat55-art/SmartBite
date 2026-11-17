@@ -93,21 +93,24 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // If vision model didn't catch or no key, analyze image color profile
+      // If vision model didn't catch or no key is configured
       if (!visionAnalyzed) {
-        try {
-          const stats = await sharp(buffer).stats();
-          const [r, g, b] = stats.channels.map((c) => c.mean);
-          if (g > r && g > b) {
-            detectedItems.push("Green Leafy Spinach (Palong Shak)", "Fresh Cucumber & Salad");
-          } else if (r > 130 && g > 90) {
-            detectedItems.push("Chicken Curry / Poultry", "Steamed White Rice", "Red Lentil Dal");
-          } else {
-            detectedItems.push("Freshwater Fish (Rui)", "Steamed Rice", "Seasonal Vegetable");
-          }
-        } catch (err) {
-          detectedItems.push("Steamed Rice", "Farm Eggs", "Lentils");
+        if (!geminiKey) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: "GEMINI_API_KEY is missing on the server. Please configure GEMINI_API_KEY in your Render/Vercel Environment Variables.",
+            },
+            { status: 400 }
+          );
         }
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Could not clearly identify grocery items in this image. Please upload a clear photo of food or ingredients.",
+          },
+          { status: 422 }
+        );
       }
     }
 
